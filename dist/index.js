@@ -88,23 +88,19 @@ var styles$1 = /*#__PURE__*/Object.freeze({
 });
 
 // Enums
-// --------------------------------------------------------
-var GeometryType;
 (function (GeometryType) {
     GeometryType["MULTI_POLY"] = "MultiPolygon";
     GeometryType["POLY"] = "Polygon";
-})(GeometryType || (GeometryType = {}));
-var MapStyle;
+})(exports.GeometryType || (exports.GeometryType = {}));
 (function (MapStyle) {
     MapStyle["DARK"] = "Dark";
     MapStyle["LIGHT"] = "Light";
-})(MapStyle || (MapStyle = {}));
-var ButtonType;
+})(exports.MapStyle || (exports.MapStyle = {}));
 (function (ButtonType) {
     ButtonType["ZOOM_IN"] = "Zoom In";
     ButtonType["ZOOM_OUT"] = "Zoom Out";
     ButtonType["DOWNLOAD"] = "Download";
-})(ButtonType || (ButtonType = {}));
+})(exports.ButtonType || (exports.ButtonType = {}));
 
 var _a;
 // TODO: Use real implementation of the MapButton
@@ -114,8 +110,8 @@ var MapButton = function () {
 /* Constants
 -------------------------------------------------------------------------*/
 var StylesByMapStyle = (_a = {},
-    _a[MapStyle.DARK] = "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
-    _a[MapStyle.LIGHT] = "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
+    _a[exports.MapStyle.DARK] = "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
+    _a[exports.MapStyle.LIGHT] = "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
     _a);
 var Map = /** @class */ (function (_super) {
     __extends(Map, _super);
@@ -127,10 +123,10 @@ var Map = /** @class */ (function (_super) {
         _this.mapCanvas = null;
         _this.overlayCanvas = null;
         _this.handleButtonOnClick = function (button) {
-            if (button === ButtonType.ZOOM_IN) {
+            if (button === exports.ButtonType.ZOOM_IN) {
                 _this.props.onZoomIn();
             }
-            else if (button === ButtonType.ZOOM_OUT) {
+            else if (button === exports.ButtonType.ZOOM_OUT) {
                 _this.props.onZoomOut();
             }
         };
@@ -278,7 +274,7 @@ function getMultipolygonClickPosition(info) {
         return undefined;
     }
     var type = geometry.type;
-    if (type !== GeometryType.MULTI_POLY) {
+    if (type !== exports.GeometryType.MULTI_POLY) {
         return undefined;
     }
     var coordinates = info.object.geometry.coordinates;

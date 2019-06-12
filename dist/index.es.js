@@ -317,4 +317,4 @@ function convertRgbToHex(color) {
     return ("#" + convertNumberToHex(color[0]) + convertNumberToHex(color[1]) + convertNumberToHex(color[2]));
 }
 
-export { Map };
+export { ButtonType, GeometryType, Map, MapStyle };
