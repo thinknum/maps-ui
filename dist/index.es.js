@@ -8,6 +8,7 @@ export { default as ReactMapGL } from 'react-map-gl';
 import { fitBounds, normalizeViewportProps } from 'viewport-mercator-project';
 import * as Mercator from 'viewport-mercator-project';
 export { Mercator };
+import { SizeMe } from 'react-sizeme';
 
 // Enums
 // --------------------------------------------------------
@@ -99,8 +100,23 @@ var tooltip = "styles_tooltip__1MlWX";
 var buttons = "styles_buttons__C-09c";
 var embedded = "styles_embedded__2Udgw";
 var group = "styles_group__1mM-j";
+var zoomIn = "styles_zoomIn__3CqqR";
+var zoomOut = "styles_zoomOut__1uTQ-";
+var download = "styles_download__1lBsI";
 var css = ".styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR {\n      border-right: 1px solid #eef7fc; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i svg {\n      padding-bottom: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR i,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i {\n      margin-right: 0 !important; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR:hover i svg path,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-:hover i svg path {\n      fill: #000; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI {\n      background: white;\n      width: 34px;\n      height: 32px;\n      padding: 0;\n      box-sizing: border-box;\n      display: inline-block;\n      position: relative; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI:after {\n      top: 7px;\n      left: 13px; }\n";
+var styles = {"tooltip":"styles_tooltip__1MlWX","buttons":"styles_buttons__C-09c","embedded":"styles_embedded__2Udgw","group":"styles_group__1mM-j","zoomIn":"styles_zoomIn__3CqqR","zoomOut":"styles_zoomOut__1uTQ-","download":"styles_download__1lBsI"};
 styleInject(css);
+
+var styles$1 = /*#__PURE__*/Object.freeze({
+  tooltip: tooltip,
+  buttons: buttons,
+  embedded: embedded,
+  group: group,
+  zoomIn: zoomIn,
+  zoomOut: zoomOut,
+  download: download,
+  'default': styles
+});
 
 var _a;
 // TODO: Use real implementation of the MapButton
@@ -113,9 +129,9 @@ var StylesByMapStyle = (_a = {},
     _a[MapStyle.DARK] = "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
     _a[MapStyle.LIGHT] = "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
     _a);
-var Map = /** @class */ (function (_super) {
-    __extends(Map, _super);
-    function Map() {
+var MapCore = /** @class */ (function (_super) {
+    __extends(MapCore, _super);
+    function MapCore() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = {
             tooltip: undefined,
@@ -187,7 +203,7 @@ var Map = /** @class */ (function (_super) {
         };
         return _this;
     }
-    Map.prototype.componentDidUpdate = function (prevProps) {
+    MapCore.prototype.componentDidUpdate = function (prevProps) {
         var _a = this.props, fitBounds$1 = _a.fitBounds, fitBoundsPadding = _a.fitBoundsPadding, width = _a.width, height = _a.height, viewport = _a.viewport;
         var defaultPadding = 30;
         var padding = {
@@ -226,14 +242,14 @@ var Map = /** @class */ (function (_super) {
                 zoom: zoom, transitionInterpolator: new FlyToInterpolator(), transitionDuration: 500 }));
         }
     };
-    Map.prototype.render = function () {
+    MapCore.prototype.render = function () {
         var _this = this;
         var _a;
         var _b = this.props, viewport = _b.viewport, width = _b.width, height = _b.height, onViewportChange = _b.onViewportChange, layers = _b.layers, style = _b.style, buttons$1 = _b.buttons, onPointHover = _b.onPointHover, onOverlayHover = _b.onOverlayHover, onClick = _b.onClick, onMapClick = _b.onMapClick, children = _b.children, isDoubleClickDisabled = _b.isDoubleClickDisabled, isEmbedded = _b.isEmbedded;
         var tooltip$1 = this.state.tooltip;
         var mapStyle = StylesByMapStyle[style];
         return (React.createElement(React.Fragment, null,
-            React.createElement(ReactMapGL, __assign({ mapStyle: mapStyle, preserveDrawingBuffer: true }, viewport, { ref: this.handleUpdateMapRef, width: width, height: height, doubleClickZoom: isDoubleClickDisabled ? false : true, onViewportChange: function (info) {
+            React.createElement(ReactMapGL, __assign({ mapboxApiAccessToken: "pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA", mapStyle: mapStyle, preserveDrawingBuffer: true }, viewport, { ref: this.handleUpdateMapRef, width: width, height: height, doubleClickZoom: isDoubleClickDisabled ? false : true, onViewportChange: function (info) {
                     onPointHover(undefined);
                     onOverlayHover(undefined);
                     onClick(undefined);
@@ -250,7 +266,7 @@ var Map = /** @class */ (function (_super) {
                     _a[embedded] = isEmbedded,
                     _a)) }, buttons$1.map(function (group$1, i) { return (React.createElement("div", { className: group, key: i }, group$1.map(function (button, j) { return (React.createElement(MapButton, { key: j, button: button, onClick: _this.handleButtonOnClick })); }))); })))));
     };
-    Map.prototype.getMergedCanvas = function () {
+    MapCore.prototype.getMergedCanvas = function () {
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
         canvas.width = this.mapCanvas.width;
@@ -259,7 +275,7 @@ var Map = /** @class */ (function (_super) {
         context.drawImage(this.overlayCanvas, 0, 0);
         return canvas;
     };
-    return Map;
+    return MapCore;
 }(React.Component));
 function getItemPosition(info) {
     var objectPosition = info.object.position;
@@ -320,4 +336,75 @@ function convertRgbToHex(color) {
     return ("#" + convertNumberToHex(color[0]) + convertNumberToHex(color[1]) + convertNumberToHex(color[2]));
 }
 
-export { ButtonType, GeometryType, Map, MapStyle, StylesByMapStyle };
+var MapContainer = /** @class */ (function (_super) {
+    __extends(MapContainer, _super);
+    function MapContainer() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {
+            viewport: {
+                bearing: 0,
+                latitude: 0,
+                longitude: 0,
+                pitch: 0,
+                zoom: 1,
+            },
+        };
+        _this.mapRef = React.createRef();
+        _this.handleZoomOutOnClick = function () {
+            var viewport = _this.props.viewport || _this.state.viewport;
+            var updatedViewport = __assign({}, viewport, { zoom: viewport.zoom - 1 > 0 ? viewport.zoom - 1 : viewport.zoom });
+            if (_this.props.viewport) {
+                _this.props.onViewportChange(updatedViewport);
+            }
+            else {
+                _this.setState({
+                    viewport: updatedViewport,
+                });
+            }
+        };
+        _this.handleZoomInOnClick = function () {
+            var viewport = _this.props.viewport || _this.state.viewport;
+            var updatedViewport = __assign({}, viewport, { zoom: viewport.zoom + 1 < 20 ? viewport.zoom + 1 : viewport.zoom });
+            if (_this.props.viewport) {
+                _this.props.onViewportChange(updatedViewport);
+            }
+            else {
+                _this.setState({
+                    viewport: updatedViewport,
+                });
+            }
+        };
+        _this.onViewportChange = function (viewport) {
+            _this.setState({ viewport: viewport });
+            _this.props.onViewportChange(viewport);
+        };
+        return _this;
+    }
+    MapContainer.prototype.render = function () {
+        var _this = this;
+        var _a = this.props, layers = _a.layers, style = _a.style, fitBounds = _a.fitBounds, onClick = _a.onClick, onMapClick = _a.onMapClick, onPointHover = _a.onPointHover, onOverlayHover = _a.onOverlayHover, children = _a.children, isDoubleClickDisabled = _a.isDoubleClickDisabled, isEmbedded = _a.isEmbedded, fitBoundsPadding = _a.fitBoundsPadding;
+        var wantsZoomButtons = this.props.wantsZoomButtons;
+        if (wantsZoomButtons === undefined) {
+            wantsZoomButtons = true;
+        }
+        return (React.createElement(SizeMe, { monitorHeight: true }, function (_a) {
+            var size = _a.size;
+            var width = size.width || 200;
+            var height = size.height || 150;
+            return (React.createElement("div", { className: undefined },
+                React.createElement(MapCore, { style: style, viewport: _this.props.viewport || _this.state.viewport, buttons: wantsZoomButtons ? [[ButtonType.ZOOM_IN, ButtonType.ZOOM_OUT]] : [], width: width, height: height, onViewportChange: _this.onViewportChange, onZoomIn: _this.handleZoomInOnClick, onZoomOut: _this.handleZoomOutOnClick, onClick: onClick, onMapClick: onMapClick, onPointHover: onPointHover, onOverlayHover: onOverlayHover, layers: layers, fitBounds: fitBounds, fitBoundsPadding: fitBoundsPadding, ref: _this.mapRef, isDoubleClickDisabled: isDoubleClickDisabled, isEmbedded: isEmbedded }, children)));
+        }));
+    };
+    MapContainer.prototype.getMapCanvas = function () {
+        var map = this.mapRef.current;
+        if (map) {
+            return map.getMergedCanvas();
+        }
+    };
+    MapContainer.defaultProps = {
+        style: MapStyle.LIGHT,
+    };
+    return MapContainer;
+}(React.Component));
+
+export { ButtonType, GeometryType, MapContainer, MapCore, MapStyle, StylesByMapStyle };

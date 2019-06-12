@@ -29,4 +29,10 @@ export interface IPointInfo {
     y: number;
     layer: any;
 }
+export interface Padding {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+}
 export declare type PanHandler = (viewport: IViewport) => void;

@@ -7,7 +7,15 @@ import ReactMapGL, {FlyToInterpolator} from "react-map-gl";
 import * as Mercator from "viewport-mercator-project";
 import * as styles from "./styles.scss";
 // import {ButtonType, IPointInfo, IViewport, MapStyle, PanHandler} from "./types";
-import {GeometryType, MapStyle, IViewport, ButtonType, PanHandler, IPointInfo} from "../lib/types";
+import {
+  GeometryType,
+  MapStyle,
+  IViewport,
+  ButtonType,
+  PanHandler,
+  IPointInfo,
+  Padding,
+} from "../lib/types";
 
 // TODO: Use real implementation of the MapButton
 const MapButton: React.FC<any> = () => {
@@ -33,13 +41,6 @@ export const StylesByMapStyle = {
 
 /* Template
 -------------------------------------------------------------------------*/
-
-interface Padding {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-}
 
 interface IMapProps {
   layers?: any[];
@@ -71,7 +72,7 @@ interface IMapState {
     | undefined;
 }
 
-export class Map extends React.Component<IMapProps, IMapState> {
+export class MapCore extends React.Component<IMapProps, IMapState> {
   public state: IMapState = {
     tooltip: undefined,
   };
@@ -159,6 +160,7 @@ export class Map extends React.Component<IMapProps, IMapState> {
     return (
       <>
         <ReactMapGL
+          mapboxApiAccessToken={"pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA"}
           mapStyle={mapStyle}
           preserveDrawingBuffer={true}
           {...viewport}

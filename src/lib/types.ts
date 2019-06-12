@@ -40,6 +40,13 @@ export interface IPointInfo {
   layer: any;
 }
 
+export interface Padding {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
 // Handlers
 // --------------------------------------------------------
 
