@@ -66,8 +66,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
     return (
       <SizeMe monitorHeight>
         {({size}) => {
-          const width = size.width || 200;
-          const height = size.height || 150;
+          const {width, height} = size;
 
           return (
             <div className={styles.MapContainer}>
@@ -75,8 +74,8 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
                 style={style}
                 viewport={this.props.viewport || this.state.viewport}
                 buttons={wantsZoomButtons ? [[ButtonType.ZOOM_IN, ButtonType.ZOOM_OUT]] : []}
-                width={width}
-                height={height}
+                width={width || 600}
+                height={height || 300}
                 onViewportChange={this.onViewportChange}
                 onZoomIn={this.handleZoomInOnClick}
                 onZoomOut={this.handleZoomOutOnClick}

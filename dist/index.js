@@ -13,6 +13,7 @@ var ReactMapGL = require('react-map-gl');
 var ReactMapGL__default = _interopDefault(ReactMapGL);
 var Mercator = require('viewport-mercator-project');
 var reactSizeme = require('react-sizeme');
+var layers = require('@deck.gl/layers');
 
 // Enums
 (function (GeometryType) {
@@ -96,27 +97,13 @@ function styleInject(css, ref) {
   }
 }
 
+var MapContainer = "styles_MapContainer__svuYM";
 var tooltip = "styles_tooltip__1MlWX";
 var buttons = "styles_buttons__C-09c";
 var embedded = "styles_embedded__2Udgw";
 var group = "styles_group__1mM-j";
-var zoomIn = "styles_zoomIn__3CqqR";
-var zoomOut = "styles_zoomOut__1uTQ-";
-var download = "styles_download__1lBsI";
-var css = ".styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR {\n      border-right: 1px solid #eef7fc; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i svg {\n      padding-bottom: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR i,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i {\n      margin-right: 0 !important; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR:hover i svg path,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-:hover i svg path {\n      fill: #000; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI {\n      background: white;\n      width: 34px;\n      height: 32px;\n      padding: 0;\n      box-sizing: border-box;\n      display: inline-block;\n      position: relative; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI:after {\n      top: 7px;\n      left: 13px; }\n";
-var styles = {"tooltip":"styles_tooltip__1MlWX","buttons":"styles_buttons__C-09c","embedded":"styles_embedded__2Udgw","group":"styles_group__1mM-j","zoomIn":"styles_zoomIn__3CqqR","zoomOut":"styles_zoomOut__1uTQ-","download":"styles_download__1lBsI"};
+var css = ".styles_MapContainer__svuYM {\n  width: 100%;\n  height: 100%;\n  min-width: 320px;\n  min-height: 180px; }\n\n.styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR {\n      border-right: 1px solid #eef7fc; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i svg {\n      padding-bottom: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR i,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i {\n      margin-right: 0 !important; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR:hover i svg path,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-:hover i svg path {\n      fill: #000; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI {\n      background: white;\n      width: 34px;\n      height: 32px;\n      padding: 0;\n      box-sizing: border-box;\n      display: inline-block;\n      position: relative; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI:after {\n      top: 7px;\n      left: 13px; }\n";
 styleInject(css);
-
-var styles$1 = /*#__PURE__*/Object.freeze({
-  tooltip: tooltip,
-  buttons: buttons,
-  embedded: embedded,
-  group: group,
-  zoomIn: zoomIn,
-  zoomOut: zoomOut,
-  download: download,
-  'default': styles
-});
 
 var _a;
 // TODO: Use real implementation of the MapButton
@@ -259,7 +246,7 @@ var MapCore = /** @class */ (function (_super) {
                         onMapClick(ev.lngLat, [ev.offsetCenter.x, ev.offsetCenter.y]);
                     }
                 }, attributionControl: false }),
-                React.createElement(DeckGL__default, __assign({}, viewport, { ref: this.handleUpdateDeckRef, width: width, height: height, layers: layers, onHover: this.onLayerHover, onClick: this.onLayerClick, pickingRadius: 5 })),
+                React.createElement(DeckGL__default, { viewState: viewport, ref: this.handleUpdateDeckRef, width: width, height: height, layers: layers, onHover: this.onLayerHover, onClick: this.onLayerClick, pickingRadius: 5 }),
                 children,
                 tooltip$1 ? (React.createElement("div", { className: tooltip, style: { top: tooltip$1.y, left: tooltip$1.x } }, tooltip$1.content)) : null),
             buttons$1.length > 0 && (React.createElement("div", { className: cx(buttons, (_a = {},
@@ -336,9 +323,9 @@ function convertRgbToHex(color) {
     return ("#" + convertNumberToHex(color[0]) + convertNumberToHex(color[1]) + convertNumberToHex(color[2]));
 }
 
-var MapContainer = /** @class */ (function (_super) {
-    __extends(MapContainer, _super);
-    function MapContainer() {
+var MapContainer$1 = /** @class */ (function (_super) {
+    __extends(MapContainer$1, _super);
+    function MapContainer$1() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = {
             viewport: {
@@ -380,7 +367,7 @@ var MapContainer = /** @class */ (function (_super) {
         };
         return _this;
     }
-    MapContainer.prototype.render = function () {
+    MapContainer$1.prototype.render = function () {
         var _this = this;
         var _a = this.props, layers = _a.layers, style = _a.style, fitBounds = _a.fitBounds, onClick = _a.onClick, onMapClick = _a.onMapClick, onPointHover = _a.onPointHover, onOverlayHover = _a.onOverlayHover, children = _a.children, isDoubleClickDisabled = _a.isDoubleClickDisabled, isEmbedded = _a.isEmbedded, fitBoundsPadding = _a.fitBoundsPadding;
         var wantsZoomButtons = this.props.wantsZoomButtons;
@@ -389,51 +376,62 @@ var MapContainer = /** @class */ (function (_super) {
         }
         return (React.createElement(reactSizeme.SizeMe, { monitorHeight: true }, function (_a) {
             var size = _a.size;
-            var width = size.width || 200;
-            var height = size.height || 150;
-            return (React.createElement("div", { className: undefined },
-                React.createElement(MapCore, { style: style, viewport: _this.props.viewport || _this.state.viewport, buttons: wantsZoomButtons ? [[exports.ButtonType.ZOOM_IN, exports.ButtonType.ZOOM_OUT]] : [], width: width, height: height, onViewportChange: _this.onViewportChange, onZoomIn: _this.handleZoomInOnClick, onZoomOut: _this.handleZoomOutOnClick, onClick: onClick, onMapClick: onMapClick, onPointHover: onPointHover, onOverlayHover: onOverlayHover, layers: layers, fitBounds: fitBounds, fitBoundsPadding: fitBoundsPadding, ref: _this.mapRef, isDoubleClickDisabled: isDoubleClickDisabled, isEmbedded: isEmbedded }, children)));
+            var width = size.width, height = size.height;
+            return (React.createElement("div", { className: MapContainer },
+                React.createElement(MapCore, { style: style, viewport: _this.props.viewport || _this.state.viewport, buttons: wantsZoomButtons ? [[exports.ButtonType.ZOOM_IN, exports.ButtonType.ZOOM_OUT]] : [], width: width || 600, height: height || 300, onViewportChange: _this.onViewportChange, onZoomIn: _this.handleZoomInOnClick, onZoomOut: _this.handleZoomOutOnClick, onClick: onClick, onMapClick: onMapClick, onPointHover: onPointHover, onOverlayHover: onOverlayHover, layers: layers, fitBounds: fitBounds, fitBoundsPadding: fitBoundsPadding, ref: _this.mapRef, isDoubleClickDisabled: isDoubleClickDisabled, isEmbedded: isEmbedded }, children)));
         }));
     };
-    MapContainer.prototype.getMapCanvas = function () {
+    MapContainer$1.prototype.getMapCanvas = function () {
         var map = this.mapRef.current;
         if (map) {
             return map.getMergedCanvas();
         }
     };
-    MapContainer.defaultProps = {
+    MapContainer$1.defaultProps = {
         style: exports.MapStyle.LIGHT,
     };
-    return MapContainer;
+    return MapContainer$1;
 }(React.Component));
 
 exports.DeckGL = DeckGL__default;
-Object.defineProperty(exports, 'GeoJsonLayer', {
-  enumerable: true,
-  get: function () {
-    return DeckGL.GeoJsonLayer;
-  }
-});
-Object.defineProperty(exports, 'IconLayer', {
-  enumerable: true,
-  get: function () {
-    return DeckGL.IconLayer;
-  }
-});
-Object.defineProperty(exports, 'ScatterplotLayer', {
-  enumerable: true,
-  get: function () {
-    return DeckGL.ScatterplotLayer;
-  }
-});
 Object.defineProperty(exports, 'WebMercatorViewport', {
   enumerable: true,
   get: function () {
     return DeckGL.WebMercatorViewport;
   }
 });
+Object.defineProperty(exports, 'InteractiveMap', {
+  enumerable: true,
+  get: function () {
+    return ReactMapGL.InteractiveMap;
+  }
+});
 exports.ReactMapGL = ReactMapGL__default;
+Object.defineProperty(exports, 'StaticMap', {
+  enumerable: true,
+  get: function () {
+    return ReactMapGL.StaticMap;
+  }
+});
 exports.Mercator = Mercator;
-exports.MapContainer = MapContainer;
+Object.defineProperty(exports, 'GeoJsonLayer', {
+  enumerable: true,
+  get: function () {
+    return layers.GeoJsonLayer;
+  }
+});
+Object.defineProperty(exports, 'IconLayer', {
+  enumerable: true,
+  get: function () {
+    return layers.IconLayer;
+  }
+});
+Object.defineProperty(exports, 'ScatterplotLayer', {
+  enumerable: true,
+  get: function () {
+    return layers.ScatterplotLayer;
+  }
+});
+exports.MapContainer = MapContainer$1;
 exports.MapCore = MapCore;
 exports.StylesByMapStyle = StylesByMapStyle;

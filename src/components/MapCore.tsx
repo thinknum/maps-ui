@@ -6,7 +6,6 @@ import React from "react";
 import ReactMapGL, {FlyToInterpolator} from "react-map-gl";
 import * as Mercator from "viewport-mercator-project";
 import * as styles from "./styles.scss";
-// import {ButtonType, IPointInfo, IViewport, MapStyle, PanHandler} from "./types";
 import {
   GeometryType,
   MapStyle,
@@ -19,7 +18,8 @@ import {
 
 // TODO: Use real implementation of the MapButton
 const MapButton: React.FC<any> = () => {
-  return <span>button</span>;
+  return null;
+  // return <span>button</span>;
 };
 
 /* Types
@@ -182,7 +182,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
           attributionControl={false}
         >
           <DeckGL
-            {...viewport}
+            viewState={viewport}
             ref={this.handleUpdateDeckRef}
             width={width}
             height={height}
