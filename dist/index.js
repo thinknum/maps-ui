@@ -5,7 +5,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var cx = _interopDefault(require('classnames'));
-var DeckGL = _interopDefault(require('deck.gl'));
+var DeckGL = require('deck.gl');
+var DeckGL__default = _interopDefault(DeckGL);
 var isEqual = _interopDefault(require('lodash-es/isEqual'));
 var React = _interopDefault(require('react'));
 var ReactMapGL = require('react-map-gl');
@@ -94,13 +95,12 @@ function styleInject(css, ref) {
   }
 }
 
-var css = "";
-var styles = {};
+var tooltip = "styles_tooltip__1MlWX";
+var buttons = "styles_buttons__C-09c";
+var embedded = "styles_embedded__2Udgw";
+var group = "styles_group__1mM-j";
+var css = ".styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR {\n      border-right: 1px solid #eef7fc; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i svg {\n      padding-bottom: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR i,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i {\n      margin-right: 0 !important; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR:hover i svg path,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-:hover i svg path {\n      fill: #000; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI {\n      background: white;\n      width: 34px;\n      height: 32px;\n      padding: 0;\n      box-sizing: border-box;\n      display: inline-block;\n      position: relative; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI:after {\n      top: 7px;\n      left: 13px; }\n";
 styleInject(css);
-
-var styles$1 = /*#__PURE__*/Object.freeze({
-  'default': styles
-});
 
 var _a;
 // TODO: Use real implementation of the MapButton
@@ -229,8 +229,8 @@ var Map = /** @class */ (function (_super) {
     Map.prototype.render = function () {
         var _this = this;
         var _a;
-        var _b = this.props, viewport = _b.viewport, width = _b.width, height = _b.height, onViewportChange = _b.onViewportChange, layers = _b.layers, style = _b.style, buttons = _b.buttons, onPointHover = _b.onPointHover, onOverlayHover = _b.onOverlayHover, onClick = _b.onClick, onMapClick = _b.onMapClick, children = _b.children, isDoubleClickDisabled = _b.isDoubleClickDisabled, isEmbedded = _b.isEmbedded;
-        var tooltip = this.state.tooltip;
+        var _b = this.props, viewport = _b.viewport, width = _b.width, height = _b.height, onViewportChange = _b.onViewportChange, layers = _b.layers, style = _b.style, buttons$1 = _b.buttons, onPointHover = _b.onPointHover, onOverlayHover = _b.onOverlayHover, onClick = _b.onClick, onMapClick = _b.onMapClick, children = _b.children, isDoubleClickDisabled = _b.isDoubleClickDisabled, isEmbedded = _b.isEmbedded;
+        var tooltip$1 = this.state.tooltip;
         var mapStyle = StylesByMapStyle[style];
         return (React.createElement(React.Fragment, null,
             React.createElement(ReactMapGL__default, __assign({ mapStyle: mapStyle, preserveDrawingBuffer: true }, viewport, { ref: this.handleUpdateMapRef, width: width, height: height, doubleClickZoom: isDoubleClickDisabled ? false : true, onViewportChange: function (info) {
@@ -243,12 +243,12 @@ var Map = /** @class */ (function (_super) {
                         onMapClick(ev.lngLat, [ev.offsetCenter.x, ev.offsetCenter.y]);
                     }
                 }, attributionControl: false }),
-                React.createElement(DeckGL, __assign({}, viewport, { ref: this.handleUpdateDeckRef, width: width, height: height, layers: layers, onLayerHover: this.onLayerHover, onLayerClick: this.onLayerClick, pickingRadius: 5 })),
+                React.createElement(DeckGL__default, __assign({}, viewport, { ref: this.handleUpdateDeckRef, width: width, height: height, layers: layers, onHover: this.onLayerHover, onClick: this.onLayerClick, pickingRadius: 5 })),
                 children,
-                tooltip ? (React.createElement("div", { className: undefined, style: { top: tooltip.y, left: tooltip.x } }, tooltip.content)) : null),
-            buttons.length > 0 && (React.createElement("div", { className: cx(undefined, (_a = {},
-                    _a[undefined] = isEmbedded,
-                    _a)) }, buttons.map(function (group, i) { return (React.createElement("div", { className: undefined, key: i }, group.map(function (button, j) { return (React.createElement(MapButton, { key: j, button: button, onClick: _this.handleButtonOnClick })); }))); })))));
+                tooltip$1 ? (React.createElement("div", { className: tooltip, style: { top: tooltip$1.y, left: tooltip$1.x } }, tooltip$1.content)) : null),
+            buttons$1.length > 0 && (React.createElement("div", { className: cx(buttons, (_a = {},
+                    _a[embedded] = isEmbedded,
+                    _a)) }, buttons$1.map(function (group$1, i) { return (React.createElement("div", { className: group, key: i }, group$1.map(function (button, j) { return (React.createElement(MapButton, { key: j, button: button, onClick: _this.handleButtonOnClick })); }))); })))));
     };
     Map.prototype.getMergedCanvas = function () {
         var canvas = document.createElement("canvas");
@@ -320,5 +320,32 @@ function convertRgbToHex(color) {
     return ("#" + convertNumberToHex(color[0]) + convertNumberToHex(color[1]) + convertNumberToHex(color[2]));
 }
 
+exports.DeckGL = DeckGL__default;
+Object.defineProperty(exports, 'GeoJsonLayer', {
+  enumerable: true,
+  get: function () {
+    return DeckGL.GeoJsonLayer;
+  }
+});
+Object.defineProperty(exports, 'IconLayer', {
+  enumerable: true,
+  get: function () {
+    return DeckGL.IconLayer;
+  }
+});
+Object.defineProperty(exports, 'ScatterplotLayer', {
+  enumerable: true,
+  get: function () {
+    return DeckGL.ScatterplotLayer;
+  }
+});
+Object.defineProperty(exports, 'WebMercatorViewport', {
+  enumerable: true,
+  get: function () {
+    return DeckGL.WebMercatorViewport;
+  }
+});
+exports.ReactMapGL = ReactMapGL__default;
+exports.Mercator = Mercator;
 exports.Map = Map;
 exports.StylesByMapStyle = StylesByMapStyle;

@@ -854,7 +854,7 @@ decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
-deck.gl@^7.1.3:
+deck.gl@7.1.3:
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/deck.gl/-/deck.gl-7.1.3.tgz#7e19897d5f2ee4af40f5df500f44c320252fffa8"
   dependencies:
@@ -2500,7 +2500,7 @@ react-is@^16.8.1:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
 
-react-map-gl@^5.0.3:
+react-map-gl@5.0.3:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-5.0.3.tgz#d48279da5f9c7ac9e674388abe3d40b32206408b"
   dependencies:
@@ -3294,7 +3294,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-viewport-mercator-project@^6.1.0, viewport-mercator-project@^6.1.1:
+viewport-mercator-project@6.1.1, viewport-mercator-project@^6.1.0:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/viewport-mercator-project/-/viewport-mercator-project-6.1.1.tgz#d7b2cb3cb772b819f1daab17cf4019102a9102a6"
   dependencies:

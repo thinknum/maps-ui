@@ -185,8 +185,8 @@ export class Map extends React.Component<IMapProps, IMapState> {
             width={width}
             height={height}
             layers={layers}
-            onLayerHover={this.onLayerHover}
-            onLayerClick={this.onLayerClick}
+            onHover={this.onLayerHover}
+            onClick={this.onLayerClick}
             pickingRadius={5}
           />
 
