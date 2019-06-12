@@ -1,2 +1,2 @@
-export { Map } from "./components/Map";
 export * from "./lib/types";
+export * from "./components/Map";

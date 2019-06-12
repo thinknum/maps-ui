@@ -5,6 +5,25 @@ import React from 'react';
 import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
 import { fitBounds, normalizeViewportProps } from 'viewport-mercator-project';
 
+// Enums
+// --------------------------------------------------------
+var GeometryType;
+(function (GeometryType) {
+    GeometryType["MULTI_POLY"] = "MultiPolygon";
+    GeometryType["POLY"] = "Polygon";
+})(GeometryType || (GeometryType = {}));
+var MapStyle;
+(function (MapStyle) {
+    MapStyle["DARK"] = "Dark";
+    MapStyle["LIGHT"] = "Light";
+})(MapStyle || (MapStyle = {}));
+var ButtonType;
+(function (ButtonType) {
+    ButtonType["ZOOM_IN"] = "Zoom In";
+    ButtonType["ZOOM_OUT"] = "Zoom Out";
+    ButtonType["DOWNLOAD"] = "Download";
+})(ButtonType || (ButtonType = {}));
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -77,27 +96,8 @@ var styles = {};
 styleInject(css);
 
 var styles$1 = /*#__PURE__*/Object.freeze({
-    'default': styles
+  'default': styles
 });
-
-// Enums
-// --------------------------------------------------------
-var GeometryType;
-(function (GeometryType) {
-    GeometryType["MULTI_POLY"] = "MultiPolygon";
-    GeometryType["POLY"] = "Polygon";
-})(GeometryType || (GeometryType = {}));
-var MapStyle;
-(function (MapStyle) {
-    MapStyle["DARK"] = "Dark";
-    MapStyle["LIGHT"] = "Light";
-})(MapStyle || (MapStyle = {}));
-var ButtonType;
-(function (ButtonType) {
-    ButtonType["ZOOM_IN"] = "Zoom In";
-    ButtonType["ZOOM_OUT"] = "Zoom Out";
-    ButtonType["DOWNLOAD"] = "Download";
-})(ButtonType || (ButtonType = {}));
 
 var _a;
 // TODO: Use real implementation of the MapButton
@@ -317,4 +317,4 @@ function convertRgbToHex(color) {
     return ("#" + convertNumberToHex(color[0]) + convertNumberToHex(color[1]) + convertNumberToHex(color[2]));
 }
 
-export { ButtonType, GeometryType, Map, MapStyle };
+export { ButtonType, GeometryType, Map, MapStyle, StylesByMapStyle };

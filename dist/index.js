@@ -12,6 +12,21 @@ var ReactMapGL = require('react-map-gl');
 var ReactMapGL__default = _interopDefault(ReactMapGL);
 var Mercator = require('viewport-mercator-project');
 
+// Enums
+(function (GeometryType) {
+    GeometryType["MULTI_POLY"] = "MultiPolygon";
+    GeometryType["POLY"] = "Polygon";
+})(exports.GeometryType || (exports.GeometryType = {}));
+(function (MapStyle) {
+    MapStyle["DARK"] = "Dark";
+    MapStyle["LIGHT"] = "Light";
+})(exports.MapStyle || (exports.MapStyle = {}));
+(function (ButtonType) {
+    ButtonType["ZOOM_IN"] = "Zoom In";
+    ButtonType["ZOOM_OUT"] = "Zoom Out";
+    ButtonType["DOWNLOAD"] = "Download";
+})(exports.ButtonType || (exports.ButtonType = {}));
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -84,23 +99,8 @@ var styles = {};
 styleInject(css);
 
 var styles$1 = /*#__PURE__*/Object.freeze({
-    'default': styles
+  'default': styles
 });
-
-// Enums
-(function (GeometryType) {
-    GeometryType["MULTI_POLY"] = "MultiPolygon";
-    GeometryType["POLY"] = "Polygon";
-})(exports.GeometryType || (exports.GeometryType = {}));
-(function (MapStyle) {
-    MapStyle["DARK"] = "Dark";
-    MapStyle["LIGHT"] = "Light";
-})(exports.MapStyle || (exports.MapStyle = {}));
-(function (ButtonType) {
-    ButtonType["ZOOM_IN"] = "Zoom In";
-    ButtonType["ZOOM_OUT"] = "Zoom Out";
-    ButtonType["DOWNLOAD"] = "Download";
-})(exports.ButtonType || (exports.ButtonType = {}));
 
 var _a;
 // TODO: Use real implementation of the MapButton
@@ -321,3 +321,4 @@ function convertRgbToHex(color) {
 }
 
 exports.Map = Map;
+exports.StylesByMapStyle = StylesByMapStyle;
