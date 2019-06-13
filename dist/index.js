@@ -13,7 +13,6 @@ var ReactMapGL = require('react-map-gl');
 var ReactMapGL__default = _interopDefault(ReactMapGL);
 var Mercator = require('viewport-mercator-project');
 var reactSizeme = require('react-sizeme');
-var layers = require('@deck.gl/layers');
 
 // Enums
 (function (GeometryType) {
@@ -108,7 +107,8 @@ styleInject(css);
 var _a;
 // TODO: Use real implementation of the MapButton
 var MapButton = function () {
-    return React.createElement("span", null, "button");
+    return null;
+    // return <span>button</span>;
 };
 /* Constants
 -------------------------------------------------------------------------*/
@@ -394,6 +394,24 @@ var MapContainer$1 = /** @class */ (function (_super) {
 }(React.Component));
 
 exports.DeckGL = DeckGL__default;
+Object.defineProperty(exports, 'GeoJsonLayer', {
+  enumerable: true,
+  get: function () {
+    return DeckGL.GeoJsonLayer;
+  }
+});
+Object.defineProperty(exports, 'IconLayer', {
+  enumerable: true,
+  get: function () {
+    return DeckGL.IconLayer;
+  }
+});
+Object.defineProperty(exports, 'ScatterplotLayer', {
+  enumerable: true,
+  get: function () {
+    return DeckGL.ScatterplotLayer;
+  }
+});
 Object.defineProperty(exports, 'WebMercatorViewport', {
   enumerable: true,
   get: function () {
@@ -414,24 +432,6 @@ Object.defineProperty(exports, 'StaticMap', {
   }
 });
 exports.Mercator = Mercator;
-Object.defineProperty(exports, 'GeoJsonLayer', {
-  enumerable: true,
-  get: function () {
-    return layers.GeoJsonLayer;
-  }
-});
-Object.defineProperty(exports, 'IconLayer', {
-  enumerable: true,
-  get: function () {
-    return layers.IconLayer;
-  }
-});
-Object.defineProperty(exports, 'ScatterplotLayer', {
-  enumerable: true,
-  get: function () {
-    return layers.ScatterplotLayer;
-  }
-});
 exports.MapContainer = MapContainer$1;
 exports.MapCore = MapCore;
 exports.StylesByMapStyle = StylesByMapStyle;

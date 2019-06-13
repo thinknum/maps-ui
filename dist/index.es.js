@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import DeckGL from 'deck.gl';
-export { default as DeckGL, WebMercatorViewport } from 'deck.gl';
+export { default as DeckGL, GeoJsonLayer, IconLayer, ScatterplotLayer, WebMercatorViewport } from 'deck.gl';
 import isEqual from 'lodash-es/isEqual';
 import React from 'react';
 import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
@@ -9,7 +9,6 @@ import { fitBounds, normalizeViewportProps } from 'viewport-mercator-project';
 import * as Mercator from 'viewport-mercator-project';
 export { Mercator };
 import { SizeMe } from 'react-sizeme';
-export { GeoJsonLayer, IconLayer, ScatterplotLayer } from '@deck.gl/layers';
 
 // Enums
 // --------------------------------------------------------
@@ -108,7 +107,8 @@ styleInject(css);
 var _a;
 // TODO: Use real implementation of the MapButton
 var MapButton = function () {
-    return React.createElement("span", null, "button");
+    return null;
+    // return <span>button</span>;
 };
 /* Constants
 -------------------------------------------------------------------------*/
