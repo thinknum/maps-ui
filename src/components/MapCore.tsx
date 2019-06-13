@@ -280,7 +280,14 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       return undefined;
     }
 
-    const viewport = this.deck.layerManager.viewports[0];
+    const viewports = this.deck.viewManager.getViewports();
+    const defaultViewport = viewports[0];
+
+    if (!defaultViewport) {
+      console.warn("cannot get viewport from deck.gl");
+      return undefined;
+    }
+
     const {object, layer} = info;
     const rgbColor = layer.props.getColor && layer.props.getColor(object);
     const color = rgbColor && convertRgbToHex(rgbColor);
@@ -290,7 +297,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       return undefined;
     }
 
-    const pixels = position && viewport.project(position);
+    const pixels = position && defaultViewport.project(position);
 
     return {
       x: pixels && pixels[0],

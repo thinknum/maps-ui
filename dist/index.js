@@ -171,7 +171,12 @@ var MapCore = /** @class */ (function (_super) {
             if (!info) {
                 return undefined;
             }
-            var viewport = _this.deck.layerManager.viewports[0];
+            var viewports = _this.deck.viewManager.getViewports();
+            var defaultViewport = viewports[0];
+            if (!defaultViewport) {
+                console.warn("cannot get viewport from deck.gl");
+                return undefined;
+            }
             var object = info.object, layer = info.layer;
             var rgbColor = layer.props.getColor && layer.props.getColor(object);
             var color = rgbColor && convertRgbToHex(rgbColor);
@@ -179,7 +184,7 @@ var MapCore = /** @class */ (function (_super) {
             if (!position) {
                 return undefined;
             }
-            var pixels = position && viewport.project(position);
+            var pixels = position && defaultViewport.project(position);
             return {
                 x: pixels && pixels[0],
                 y: pixels && pixels[1],
