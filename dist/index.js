@@ -26,7 +26,6 @@ var reactSizeme = require('react-sizeme');
 (function (ButtonType) {
     ButtonType["ZOOM_IN"] = "Zoom In";
     ButtonType["ZOOM_OUT"] = "Zoom Out";
-    ButtonType["DOWNLOAD"] = "Download";
 })(exports.ButtonType || (exports.ButtonType = {}));
 
 /*! *****************************************************************************
@@ -101,21 +100,45 @@ var tooltip = "styles_tooltip__1MlWX";
 var buttons = "styles_buttons__C-09c";
 var embedded = "styles_embedded__2Udgw";
 var group = "styles_group__1mM-j";
-var css = ".styles_MapContainer__svuYM {\n  width: 100%;\n  height: 100%;\n  min-width: 320px;\n  min-height: 180px; }\n\n.styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > *:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR {\n      border-right: 1px solid #eef7fc; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i svg {\n      padding-bottom: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR i,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ- i {\n      margin-right: 0 !important; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR:hover i svg path,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-:hover i svg path {\n      fill: #000; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomIn__3CqqR,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_zoomOut__1uTQ-,\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI {\n      background: white;\n      width: 34px;\n      height: 32px;\n      padding: 0;\n      box-sizing: border-box;\n      display: inline-block;\n      position: relative; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_download__1lBsI:after {\n      top: 7px;\n      left: 13px; }\n\na.mapboxgl-ctrl-logo {\n  display: none !important; }\n";
+var button = "styles_button__2SGve";
+var MapButton = "styles_MapButton__3Rnhe";
+var zoomIn = "styles_zoomIn__3CqqR";
+var zoomOut = "styles_zoomOut__1uTQ-";
+var css = ".styles_MapContainer__svuYM {\n  width: 100%;\n  height: 100%;\n  min-width: 320px;\n  min-height: 180px; }\n\n.styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n\n.styles_MapButton__3Rnhe {\n  background: white;\n  width: 34px;\n  height: 32px;\n  padding: 0;\n  box-sizing: border-box;\n  display: inline-block;\n  position: relative; }\n  .styles_MapButton__3Rnhe:active {\n    background: #f8f8f8; }\n  .styles_MapButton__3Rnhe:focus {\n    outline: 0; }\n  .styles_MapButton__3Rnhe i {\n    margin-right: 0 !important; }\n  .styles_MapButton__3Rnhe:hover i svg path {\n    fill: #000; }\n  .styles_MapButton__3Rnhe.styles_zoomIn__3CqqR {\n    border-right: 1px solid #eef7fc; }\n  .styles_MapButton__3Rnhe.styles_zoomOut__1uTQ- i svg {\n    padding-bottom: 4px; }\n\na.mapboxgl-ctrl-logo {\n  display: none !important; }\n";
 styleInject(css);
 
-var _a;
-// TODO: Use real implementation of the MapButton
-var MapButton = function () {
-    return null;
-    // return <span>button</span>;
+var ZoomIn = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"10\" height=\"10\"><path fill-rule=\"evenodd\" fill=\"#778FA9\" d=\"M9 6H6v3a1 1 0 0 1-2 0V6H1a1 1 0 0 1 0-2h3V1a1 1 0 0 1 2 0v3h3a1 1 0 0 1 0 2z\"/></svg>";
+
+var ZoomOut = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"2\"><path fill-rule=\"evenodd\" fill=\"#778FA9\" d=\"M1 0h7a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z\"/></svg>";
+
+var _a, _b;
+var stylesByButton = (_a = {},
+    _a[exports.ButtonType.ZOOM_IN] = zoomIn,
+    _a[exports.ButtonType.ZOOM_OUT] = zoomOut,
+    _a);
+var icons = (_b = {},
+    _b[exports.ButtonType.ZOOM_IN] = ZoomIn,
+    _b[exports.ButtonType.ZOOM_OUT] = ZoomOut,
+    _b);
+var Icon = function (props) {
+    return React.createElement("i", { dangerouslySetInnerHTML: { __html: props.svg } });
 };
+var MapButton$1 = function (props) {
+    return (React.createElement("button", { className: cx(MapButton, props.className, stylesByButton[props.button]), onClick: function (ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            props.onClick(props.button);
+        } },
+        React.createElement(Icon, { svg: icons[props.button] })));
+};
+
+var _a$1;
 /* Constants
 -------------------------------------------------------------------------*/
-var StylesByMapStyle = (_a = {},
-    _a[exports.MapStyle.DARK] = "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
-    _a[exports.MapStyle.LIGHT] = "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
-    _a);
+var StylesByMapStyle = (_a$1 = {},
+    _a$1[exports.MapStyle.DARK] = "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
+    _a$1[exports.MapStyle.LIGHT] = "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
+    _a$1);
 var MapCore = /** @class */ (function (_super) {
     __extends(MapCore, _super);
     function MapCore() {
@@ -256,7 +279,7 @@ var MapCore = /** @class */ (function (_super) {
                 tooltip$1 ? (React.createElement("div", { className: tooltip, style: { top: tooltip$1.y, left: tooltip$1.x } }, tooltip$1.content)) : null),
             buttons$1.length > 0 && (React.createElement("div", { className: cx(buttons, (_a = {},
                     _a[embedded] = isEmbedded,
-                    _a)) }, buttons$1.map(function (group$1, i) { return (React.createElement("div", { className: group, key: i }, group$1.map(function (button, j) { return (React.createElement(MapButton, { key: j, button: button, onClick: _this.handleButtonOnClick })); }))); })))));
+                    _a)) }, buttons$1.map(function (group$1, i) { return (React.createElement("div", { className: group, key: i }, group$1.map(function (button$1, j) { return (React.createElement(MapButton$1, { key: j, button: button$1, onClick: _this.handleButtonOnClick, className: button })); }))); })))));
     };
     MapCore.prototype.getMergedCanvas = function () {
         var canvas = document.createElement("canvas");

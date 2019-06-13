@@ -2,6 +2,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript2';
+import svgo from 'rollup-plugin-svgo';
 import pkg from './package.json';
 
 export default {
@@ -34,6 +35,7 @@ plugins: [
     postcss({
       modules: true,
       namedExports: true
-    })
+    }),
+    svgo(),
   ],
 }

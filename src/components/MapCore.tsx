@@ -15,12 +15,7 @@ import {
   IPointInfo,
   Padding,
 } from "../lib/types";
-
-// TODO: Use real implementation of the MapButton
-const MapButton: React.FC<any> = () => {
-  return null;
-  // return <span>button</span>;
-};
+import {MapButton} from "./MapButton";
 
 /* Types
 -------------------------------------------------------------------------*/
@@ -210,7 +205,12 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
             {buttons.map((group, i) => (
               <div className={styles.group} key={i}>
                 {group.map((button, j) => (
-                  <MapButton key={j} button={button} onClick={this.handleButtonOnClick} />
+                  <MapButton
+                    key={j}
+                    button={button}
+                    onClick={this.handleButtonOnClick}
+                    className={styles.button}
+                  />
                 ))}
               </div>
             ))}

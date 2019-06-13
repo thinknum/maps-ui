@@ -14,7 +14,6 @@ export enum MapStyle {
 export enum ButtonType {
   ZOOM_IN = "Zoom In",
   ZOOM_OUT = "Zoom Out",
-  DOWNLOAD = "Download",
 }
 
 // Interfaces

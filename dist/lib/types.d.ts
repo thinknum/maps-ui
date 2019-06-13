@@ -8,8 +8,7 @@ export declare enum MapStyle {
 }
 export declare enum ButtonType {
     ZOOM_IN = "Zoom In",
-    ZOOM_OUT = "Zoom Out",
-    DOWNLOAD = "Download"
+    ZOOM_OUT = "Zoom Out"
 }
 export interface IViewport {
     width?: number;
