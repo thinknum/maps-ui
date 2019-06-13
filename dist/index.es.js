@@ -1,3 +1,4 @@
+import { quantile } from 'd3-array';
 import cx from 'classnames';
 import DeckGL from 'deck.gl';
 export { default as DeckGL, GeoJsonLayer, IconLayer, ScatterplotLayer, WebMercatorViewport } from 'deck.gl';
@@ -27,6 +28,63 @@ var ButtonType;
     ButtonType["ZOOM_IN"] = "Zoom In";
     ButtonType["ZOOM_OUT"] = "Zoom Out";
 })(ButtonType || (ButtonType = {}));
+
+function smartFindBounds(coordinates) {
+    var withoutOutliers = pointsWithoutOutliers(coordinates);
+    return getCoordinatesCorners(withoutOutliers);
+}
+function getCoordinatesCorners(coordinates) {
+    var left = undefined;
+    var top = undefined;
+    var right = undefined;
+    var bottom = undefined;
+    for (var _i = 0, coordinates_1 = coordinates; _i < coordinates_1.length; _i++) {
+        var _a = coordinates_1[_i], lng = _a[0], lat = _a[1];
+        if (!left || lat < left) {
+            left = lat;
+        }
+        if (!right || lat > right) {
+            right = lat;
+        }
+        if (!bottom || lng < bottom) {
+            bottom = lng;
+        }
+        if (!top || lng > top) {
+            top = lng;
+        }
+    }
+    return [[top, left], [bottom, right]];
+}
+var pointsWithoutOutliers = function (points) {
+    if (points.length === 0) {
+        return points;
+    }
+    var sampleSize = 10000; // Look at 10,000 points when calculating the size
+    var step = Math.max(1, Math.round(points.length / sampleSize));
+    var pointsSample = points.filter(function (_, i) {
+        return i % step === 0;
+    });
+    var xs = pointsSample.map(function (point) { return point[0]; });
+    var xFences = findFencesForOutliers(xs);
+    var ys = pointsSample.map(function (point) { return point[1]; });
+    var yFences = findFencesForOutliers(ys);
+    var result = points.filter(function (point) {
+        return point[0] >= xFences.lower &&
+            point[0] <= xFences.upper &&
+            point[1] >= yFences.lower &&
+            point[1] <= yFences.upper;
+    });
+    return result;
+};
+var findFencesForOutliers = function (numbers) {
+    numbers.sort(function (a, b) { return a - b; });
+    var q1 = quantile(numbers, 0.25);
+    var q3 = quantile(numbers, 0.75);
+    var range = Math.abs(q3 - q1) * 3;
+    var lower = q1 - range;
+    var upper = q3 + range;
+    return { lower: lower, upper: upper };
+};
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -421,4 +479,4 @@ var MapContainer$1 = /** @class */ (function (_super) {
     return MapContainer$1;
 }(React.Component));
 
-export { ButtonType, GeometryType, MapContainer$1 as MapContainer, MapCore, MapStyle, StylesByMapStyle };
+export { ButtonType, GeometryType, MapContainer$1 as MapContainer, MapCore, MapStyle, StylesByMapStyle, getCoordinatesCorners, pointsWithoutOutliers, smartFindBounds };

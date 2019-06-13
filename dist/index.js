@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
+var d3Array = require('d3-array');
 var cx = _interopDefault(require('classnames'));
 var DeckGL = require('deck.gl');
 var DeckGL__default = _interopDefault(DeckGL);
@@ -27,6 +28,63 @@ var reactSizeme = require('react-sizeme');
     ButtonType["ZOOM_IN"] = "Zoom In";
     ButtonType["ZOOM_OUT"] = "Zoom Out";
 })(exports.ButtonType || (exports.ButtonType = {}));
+
+function smartFindBounds(coordinates) {
+    var withoutOutliers = pointsWithoutOutliers(coordinates);
+    return getCoordinatesCorners(withoutOutliers);
+}
+function getCoordinatesCorners(coordinates) {
+    var left = undefined;
+    var top = undefined;
+    var right = undefined;
+    var bottom = undefined;
+    for (var _i = 0, coordinates_1 = coordinates; _i < coordinates_1.length; _i++) {
+        var _a = coordinates_1[_i], lng = _a[0], lat = _a[1];
+        if (!left || lat < left) {
+            left = lat;
+        }
+        if (!right || lat > right) {
+            right = lat;
+        }
+        if (!bottom || lng < bottom) {
+            bottom = lng;
+        }
+        if (!top || lng > top) {
+            top = lng;
+        }
+    }
+    return [[top, left], [bottom, right]];
+}
+var pointsWithoutOutliers = function (points) {
+    if (points.length === 0) {
+        return points;
+    }
+    var sampleSize = 10000; // Look at 10,000 points when calculating the size
+    var step = Math.max(1, Math.round(points.length / sampleSize));
+    var pointsSample = points.filter(function (_, i) {
+        return i % step === 0;
+    });
+    var xs = pointsSample.map(function (point) { return point[0]; });
+    var xFences = findFencesForOutliers(xs);
+    var ys = pointsSample.map(function (point) { return point[1]; });
+    var yFences = findFencesForOutliers(ys);
+    var result = points.filter(function (point) {
+        return point[0] >= xFences.lower &&
+            point[0] <= xFences.upper &&
+            point[1] >= yFences.lower &&
+            point[1] <= yFences.upper;
+    });
+    return result;
+};
+var findFencesForOutliers = function (numbers) {
+    numbers.sort(function (a, b) { return a - b; });
+    var q1 = d3Array.quantile(numbers, 0.25);
+    var q3 = d3Array.quantile(numbers, 0.75);
+    var range = Math.abs(q3 - q1) * 3;
+    var lower = q1 - range;
+    var upper = q3 + range;
+    return { lower: lower, upper: upper };
+};
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -463,3 +521,6 @@ exports.Mercator = Mercator;
 exports.MapContainer = MapContainer$1;
 exports.MapCore = MapCore;
 exports.StylesByMapStyle = StylesByMapStyle;
+exports.getCoordinatesCorners = getCoordinatesCorners;
+exports.pointsWithoutOutliers = pointsWithoutOutliers;
+exports.smartFindBounds = smartFindBounds;

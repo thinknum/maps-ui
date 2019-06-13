@@ -1,4 +1,5 @@
 export * from "./lib/types";
+export * from "./lib/helpers";
 export * from "./components/MapCore";
 export { MapContainer } from "./components/MapContainer";
 import ReactMapGL from "react-map-gl";
