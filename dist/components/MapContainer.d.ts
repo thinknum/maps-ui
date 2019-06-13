@@ -11,7 +11,7 @@ interface IMapContainerProps {
     onMapClick?: (mapPosition: Position, screenPosition: Position) => void;
     onPointHover: (info: IPointInfo) => void;
     onOverlayHover: (info: IPointInfo) => void;
-    onViewportChange: (viewport: IViewport) => void;
+    onViewportChange?: (viewport: IViewport) => void;
     isDoubleClickDisabled?: boolean;
     wantsZoomButtons?: boolean;
     isEmbedded?: boolean;

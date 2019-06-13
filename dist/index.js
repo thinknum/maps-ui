@@ -426,7 +426,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
         _this.handleZoomOutOnClick = function () {
             var viewport = _this.props.viewport || _this.state.viewport;
             var updatedViewport = __assign({}, viewport, { zoom: viewport.zoom - 1 > 0 ? viewport.zoom - 1 : viewport.zoom });
-            if (_this.props.viewport) {
+            if (_this.props.viewport && _this.props.onViewportChange) {
                 _this.props.onViewportChange(updatedViewport);
             }
             else {
@@ -438,7 +438,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
         _this.handleZoomInOnClick = function () {
             var viewport = _this.props.viewport || _this.state.viewport;
             var updatedViewport = __assign({}, viewport, { zoom: viewport.zoom + 1 < 20 ? viewport.zoom + 1 : viewport.zoom });
-            if (_this.props.viewport) {
+            if (_this.props.viewport && _this.props.onViewportChange) {
                 _this.props.onViewportChange(updatedViewport);
             }
             else {
@@ -449,7 +449,9 @@ var MapContainer$1 = /** @class */ (function (_super) {
         };
         _this.onViewportChange = function (viewport) {
             _this.setState({ viewport: viewport });
-            _this.props.onViewportChange(viewport);
+            if (_this.props.onViewportChange) {
+                _this.props.onViewportChange(viewport);
+            }
         };
         return _this;
     }
