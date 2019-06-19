@@ -276,43 +276,16 @@ var MapCore = /** @class */ (function (_super) {
         };
         return _this;
     }
+    MapCore.prototype.componentDidMount = function () {
+        this.applyFitBounds();
+    };
     MapCore.prototype.componentDidUpdate = function (prevProps) {
-        var _a = this.props, fitBounds = _a.fitBounds, fitBoundsPadding = _a.fitBoundsPadding, width = _a.width, height = _a.height, viewport = _a.viewport;
-        var defaultPadding = 30;
-        var padding = {
-            top: defaultPadding,
-            right: defaultPadding,
-            bottom: defaultPadding,
-            left: defaultPadding,
-        };
-        if (fitBoundsPadding) {
-            var top_1 = fitBoundsPadding.top, right = fitBoundsPadding.right, bottom = fitBoundsPadding.bottom, left = fitBoundsPadding.left;
-            padding.top = top_1 !== undefined ? top_1 : padding.top;
-            padding.right = right !== undefined ? right : padding.right;
-            padding.bottom = bottom !== undefined ? bottom : padding.bottom;
-            padding.left = left !== undefined ? left : padding.left;
-        }
+        var _a = this.props, fitBounds = _a.fitBounds, width = _a.width, height = _a.height;
         if (fitBounds &&
             (!isEqual(fitBounds, prevProps.fitBounds) ||
                 width !== prevProps.width ||
                 height !== prevProps.height)) {
-            var fittedBounds = Mercator.fitBounds({
-                bounds: fitBounds,
-                height: height,
-                padding: padding,
-                width: width,
-            });
-            if (fittedBounds.zoom < 0) {
-                fittedBounds.zoom = 0;
-            }
-            if (fittedBounds.zoom > 12) {
-                fittedBounds.zoom = 12;
-            }
-            var _b = Mercator.normalizeViewportProps(__assign({}, fittedBounds, { width: width,
-                height: height })), latitude = _b.latitude, longitude = _b.longitude, zoom = _b.zoom;
-            this.props.onViewportChange(__assign({}, viewport, { latitude: latitude,
-                longitude: longitude,
-                zoom: zoom, transitionInterpolator: new ReactMapGL.FlyToInterpolator(), transitionDuration: 500 }));
+            this.applyFitBounds();
         }
     };
     MapCore.prototype.render = function () {
@@ -339,6 +312,42 @@ var MapCore = /** @class */ (function (_super) {
                     _a[embedded] = isEmbedded,
                     _a)) }, buttons$1.map(function (group$1, i) { return (React.createElement("div", { className: group, key: i }, group$1.map(function (button$1, j) { return (React.createElement(MapButton$1, { key: j, button: button$1, onClick: _this.handleButtonOnClick, className: button })); }))); })))));
     };
+    MapCore.prototype.getPadding = function () {
+        var padding = getDefaultPadding();
+        var fitBoundsPadding = this.props.fitBoundsPadding;
+        if (fitBoundsPadding) {
+            var top_1 = fitBoundsPadding.top, right = fitBoundsPadding.right, bottom = fitBoundsPadding.bottom, left = fitBoundsPadding.left;
+            padding.top = top_1 !== undefined ? top_1 : padding.top;
+            padding.right = right !== undefined ? right : padding.right;
+            padding.bottom = bottom !== undefined ? bottom : padding.bottom;
+            padding.left = left !== undefined ? left : padding.left;
+        }
+        return padding;
+    };
+    MapCore.prototype.applyFitBounds = function () {
+        var _a = this.props, fitBounds = _a.fitBounds, width = _a.width, height = _a.height, viewport = _a.viewport;
+        var padding = this.getPadding();
+        if (fitBounds === undefined) {
+            return;
+        }
+        var fittedBounds = Mercator.fitBounds({
+            bounds: fitBounds,
+            height: height,
+            padding: padding,
+            width: width,
+        });
+        if (fittedBounds.zoom < 0) {
+            fittedBounds.zoom = 0;
+        }
+        if (fittedBounds.zoom > 12) {
+            fittedBounds.zoom = 12;
+        }
+        var _b = Mercator.normalizeViewportProps(__assign({}, fittedBounds, { width: width,
+            height: height })), latitude = _b.latitude, longitude = _b.longitude, zoom = _b.zoom;
+        this.props.onViewportChange(__assign({}, viewport, { latitude: latitude,
+            longitude: longitude,
+            zoom: zoom, transitionInterpolator: new ReactMapGL.FlyToInterpolator(), transitionDuration: 500 }));
+    };
     MapCore.prototype.getMergedCanvas = function () {
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
@@ -350,6 +359,15 @@ var MapCore = /** @class */ (function (_super) {
     };
     return MapCore;
 }(React.Component));
+function getDefaultPadding() {
+    var defaultPadding = 30;
+    return {
+        top: defaultPadding,
+        right: defaultPadding,
+        bottom: defaultPadding,
+        left: defaultPadding,
+    };
+}
 function getItemPosition(info) {
     var objectPosition = info.object.position;
     if (objectPosition) {

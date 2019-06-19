@@ -41,8 +41,11 @@ export declare class MapCore extends React.Component<IMapProps, IMapState> {
     private deck;
     mapCanvas: any;
     private overlayCanvas;
+    componentDidMount(): void;
     componentDidUpdate(prevProps: IMapProps): void;
     render(): JSX.Element;
+    private getPadding;
+    private applyFitBounds;
     private handleButtonOnClick;
     getMergedCanvas(): HTMLCanvasElement;
     private handleUpdateMapRef;

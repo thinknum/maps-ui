@@ -76,24 +76,12 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
   public mapCanvas: any = null;
   private overlayCanvas: any = null;
 
+  public componentDidMount() {
+    this.applyFitBounds();
+  }
+
   public componentDidUpdate(prevProps: IMapProps) {
-    const {fitBounds, fitBoundsPadding, width, height, viewport} = this.props;
-
-    const defaultPadding = 30;
-    const padding: Padding = {
-      top: defaultPadding,
-      right: defaultPadding,
-      bottom: defaultPadding,
-      left: defaultPadding,
-    };
-
-    if (fitBoundsPadding) {
-      const {top, right, bottom, left} = fitBoundsPadding;
-      padding.top = top !== undefined ? top : padding.top;
-      padding.right = right !== undefined ? right : padding.right;
-      padding.bottom = bottom !== undefined ? bottom : padding.bottom;
-      padding.left = left !== undefined ? left : padding.left;
-    }
+    const {fitBounds, width, height} = this.props;
 
     if (
       fitBounds &&
@@ -101,34 +89,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
         width !== prevProps.width ||
         height !== prevProps.height)
     ) {
-      const fittedBounds = Mercator.fitBounds({
-        bounds: fitBounds,
-        height,
-        padding,
-        width,
-      });
-
-      if (fittedBounds.zoom < 0) {
-        fittedBounds.zoom = 0;
-      }
-
-      if (fittedBounds.zoom > 12) {
-        fittedBounds.zoom = 12;
-      }
-
-      const {latitude, longitude, zoom} = Mercator.normalizeViewportProps({
-        ...fittedBounds,
-        width,
-        height,
-      });
-      this.props.onViewportChange({
-        ...viewport,
-        latitude,
-        longitude,
-        zoom,
-        transitionInterpolator: new FlyToInterpolator(),
-        transitionDuration: 500,
-      });
+      this.applyFitBounds();
     }
   }
 
@@ -220,6 +181,58 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
     );
   }
 
+  private getPadding() {
+    const padding = getDefaultPadding();
+
+    const {fitBoundsPadding} = this.props;
+    if (fitBoundsPadding) {
+      const {top, right, bottom, left} = fitBoundsPadding;
+      padding.top = top !== undefined ? top : padding.top;
+      padding.right = right !== undefined ? right : padding.right;
+      padding.bottom = bottom !== undefined ? bottom : padding.bottom;
+      padding.left = left !== undefined ? left : padding.left;
+    }
+
+    return padding;
+  }
+
+  private applyFitBounds() {
+    const {fitBounds, width, height, viewport} = this.props;
+    const padding = this.getPadding();
+    if (fitBounds === undefined) {
+      return;
+    }
+
+    const fittedBounds = Mercator.fitBounds({
+      bounds: fitBounds,
+      height,
+      padding,
+      width,
+    });
+
+    if (fittedBounds.zoom < 0) {
+      fittedBounds.zoom = 0;
+    }
+
+    if (fittedBounds.zoom > 12) {
+      fittedBounds.zoom = 12;
+    }
+
+    const {latitude, longitude, zoom} = Mercator.normalizeViewportProps({
+      ...fittedBounds,
+      width,
+      height,
+    });
+    this.props.onViewportChange({
+      ...viewport,
+      latitude,
+      longitude,
+      zoom,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 500,
+    });
+  }
+
   private handleButtonOnClick = (button: ButtonType) => {
     if (button === ButtonType.ZOOM_IN) {
       this.props.onZoomIn();
@@ -306,6 +319,16 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       object,
       layer,
     };
+  };
+}
+
+function getDefaultPadding(): Padding {
+  const defaultPadding = 30;
+  return {
+    top: defaultPadding,
+    right: defaultPadding,
+    bottom: defaultPadding,
+    left: defaultPadding,
   };
 }
 
