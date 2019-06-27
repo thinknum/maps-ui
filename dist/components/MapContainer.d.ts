@@ -15,6 +15,7 @@ interface IMapContainerProps {
     isDoubleClickDisabled?: boolean;
     wantsZoomButtons?: boolean;
     isEmbedded?: boolean;
+    disableTransitions?: boolean;
 }
 interface IMapContainerState {
     viewport: IViewport;

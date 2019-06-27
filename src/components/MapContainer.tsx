@@ -19,6 +19,7 @@ interface IMapContainerProps {
   isDoubleClickDisabled?: boolean;
   wantsZoomButtons?: boolean;
   isEmbedded?: boolean;
+  disableTransitions?: boolean;
 }
 
 interface IMapContainerState {
@@ -55,6 +56,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
       isDoubleClickDisabled,
       isEmbedded,
       fitBoundsPadding,
+      disableTransitions,
     } = this.props;
 
     let {wantsZoomButtons} = this.props;
@@ -89,6 +91,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
                 ref={this.mapRef}
                 isDoubleClickDisabled={isDoubleClickDisabled}
                 isEmbedded={isEmbedded}
+                disableTransitions={disableTransitions}
               >
                 {children}
               </MapCore>

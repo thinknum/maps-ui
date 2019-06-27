@@ -28,6 +28,7 @@ interface IMapProps {
     fitBoundsPadding?: Partial<Padding>;
     isDoubleClickDisabled?: boolean;
     isEmbedded?: boolean;
+    disableTransitions?: boolean;
 }
 interface IMapState {
     tooltip: {

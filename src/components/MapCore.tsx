@@ -55,6 +55,7 @@ interface IMapProps {
   fitBoundsPadding?: Partial<Padding>;
   isDoubleClickDisabled?: boolean;
   isEmbedded?: boolean;
+  disableTransitions?: boolean;
 }
 
 interface IMapState {
@@ -197,7 +198,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
   }
 
   private applyFitBounds() {
-    const {fitBounds, width, height, viewport} = this.props;
+    const {fitBounds, width, height, viewport, disableTransitions} = this.props;
     const padding = this.getPadding();
     if (fitBounds === undefined) {
       return;
@@ -223,13 +224,17 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       width,
       height,
     });
+    const transitionProps = disableTransitions ? {} : {
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 500,
+    };
+
     this.props.onViewportChange({
       ...viewport,
       latitude,
       longitude,
       zoom,
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionDuration: 500,
+      ...transitionProps,
     });
   }
 
