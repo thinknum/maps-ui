@@ -249,7 +249,7 @@ var MapCore = /** @class */ (function (_super) {
             _this.props.onClick(pointInfo);
         };
         _this.createPointInfo = function (info) {
-            if (!info) {
+            if (!info || !info.layer) {
                 return undefined;
             }
             var viewports = _this.deck.viewManager.getViewports();

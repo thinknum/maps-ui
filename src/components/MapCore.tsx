@@ -289,7 +289,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
   };
 
   private createPointInfo = (info: any): IPointInfo | undefined => {
-    if (!info) {
+    if (!info || !info.layer) {
       return undefined;
     }
 
