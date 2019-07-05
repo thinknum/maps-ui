@@ -1,4 +1,4 @@
-import { IPointInfo, IViewport, MapStyle, Padding } from "../lib/types";
+import { IPointInfo, IViewport, MapStyle, PanHandler, Padding } from "../lib/types";
 import { Position } from "geojson";
 import React from "react";
 interface IMapContainerProps {
@@ -11,7 +11,7 @@ interface IMapContainerProps {
     onMapClick?: (mapPosition: Position, screenPosition: Position) => void;
     onPointHover: (info: IPointInfo) => void;
     onOverlayHover: (info: IPointInfo) => void;
-    onViewportChange?: (viewport: IViewport) => void;
+    onViewportChange?: PanHandler;
     isDoubleClickDisabled?: boolean;
     wantsZoomButtons?: boolean;
     isEmbedded?: boolean;

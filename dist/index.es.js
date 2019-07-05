@@ -299,7 +299,7 @@ var MapCore = /** @class */ (function (_super) {
                     onPointHover(undefined);
                     onOverlayHover(undefined);
                     onClick(undefined);
-                    onViewportChange(info);
+                    onViewportChange(info, true);
                 }, onClick: function (ev) {
                     if (onMapClick) {
                         onMapClick(ev.lngLat, [ev.offsetCenter.x, ev.offsetCenter.y]);
@@ -469,10 +469,10 @@ var MapContainer$1 = /** @class */ (function (_super) {
                 });
             }
         };
-        _this.onViewportChange = function (viewport) {
+        _this.onViewportChange = function (viewport, userAction) {
             _this.setState({ viewport: viewport });
             if (_this.props.onViewportChange) {
-                _this.props.onViewportChange(viewport);
+                _this.props.onViewportChange(viewport, userAction);
             }
         };
         return _this;

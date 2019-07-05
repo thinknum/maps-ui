@@ -49,4 +49,4 @@ export interface Padding {
 // Handlers
 // --------------------------------------------------------
 
-export type PanHandler = (viewport: IViewport) => void;
+export type PanHandler = (viewport: IViewport, userAction?: boolean) => void;

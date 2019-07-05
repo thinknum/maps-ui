@@ -15,7 +15,7 @@ interface IMapContainerProps {
   onMapClick?: (mapPosition: Position, screenPosition: Position) => void;
   onPointHover: (info: IPointInfo) => void;
   onOverlayHover: (info: IPointInfo) => void;
-  onViewportChange?: (viewport: IViewport) => void;
+  onViewportChange?: PanHandler;
   isDoubleClickDisabled?: boolean;
   wantsZoomButtons?: boolean;
   isEmbedded?: boolean;
@@ -143,10 +143,10 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
     }
   };
 
-  private onViewportChange: PanHandler = (viewport) => {
+  private onViewportChange: PanHandler = (viewport, userAction) => {
     this.setState({viewport});
     if (this.props.onViewportChange) {
-      this.props.onViewportChange(viewport);
+      this.props.onViewportChange(viewport, userAction);
     }
   };
 }

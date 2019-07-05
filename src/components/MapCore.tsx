@@ -129,7 +129,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
             onPointHover(undefined);
             onOverlayHover(undefined);
             onClick(undefined);
-            onViewportChange(info);
+            onViewportChange(info, true);
           }}
           onClick={(ev: any) => {
             if (onMapClick) {
