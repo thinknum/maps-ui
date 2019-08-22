@@ -56,6 +56,7 @@ interface IMapProps {
   isDoubleClickDisabled?: boolean;
   isEmbedded?: boolean;
   disableTransitions?: boolean;
+  initialViewport?: IViewport;
 }
 
 interface IMapState {
@@ -78,11 +79,20 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
   private overlayCanvas: any = null;
 
   public componentDidMount() {
-    this.applyFitBounds();
+    if (this.props.initialViewport) {
+      this.applyInitialViewport();
+    } else {
+      this.applyFitBounds();
+    }
   }
 
   public componentDidUpdate(prevProps: IMapProps) {
-    const {fitBounds, width, height} = this.props;
+    const {fitBounds, initialViewport, width, height} = this.props;
+
+    if (initialViewport && !isEqual(initialViewport, prevProps.initialViewport)) {
+      this.applyInitialViewport();
+      return;
+    }
 
     if (
       fitBounds &&
@@ -235,6 +245,17 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       longitude,
       zoom,
       ...transitionProps,
+    });
+  }
+
+  private applyInitialViewport() {
+    const {initialViewport, viewport} = this.props;
+    if (!initialViewport) {
+      return;
+    }
+    this.props.onViewportChange({
+      ...viewport,
+      ...initialViewport,
     });
   }
 

@@ -16,6 +16,7 @@ interface IMapContainerProps {
     wantsZoomButtons?: boolean;
     isEmbedded?: boolean;
     disableTransitions?: boolean;
+    initialViewport?: IViewport;
 }
 interface IMapContainerState {
     viewport: IViewport;

@@ -29,6 +29,7 @@ interface IMapProps {
     isDoubleClickDisabled?: boolean;
     isEmbedded?: boolean;
     disableTransitions?: boolean;
+    initialViewport?: IViewport;
 }
 interface IMapState {
     tooltip: {
@@ -47,6 +48,7 @@ export declare class MapCore extends React.Component<IMapProps, IMapState> {
     render(): JSX.Element;
     private getPadding;
     private applyFitBounds;
+    private applyInitialViewport;
     private handleButtonOnClick;
     getMergedCanvas(): HTMLCanvasElement;
     private handleUpdateMapRef;

@@ -277,10 +277,19 @@ var MapCore = /** @class */ (function (_super) {
         return _this;
     }
     MapCore.prototype.componentDidMount = function () {
-        this.applyFitBounds();
+        if (this.props.initialViewport) {
+            this.applyInitialViewport();
+        }
+        else {
+            this.applyFitBounds();
+        }
     };
     MapCore.prototype.componentDidUpdate = function (prevProps) {
-        var _a = this.props, fitBounds = _a.fitBounds, width = _a.width, height = _a.height;
+        var _a = this.props, fitBounds = _a.fitBounds, initialViewport = _a.initialViewport, width = _a.width, height = _a.height;
+        if (initialViewport && !isEqual(initialViewport, prevProps.initialViewport)) {
+            this.applyInitialViewport();
+            return;
+        }
         if (fitBounds &&
             (!isEqual(fitBounds, prevProps.fitBounds) ||
                 width !== prevProps.width ||
@@ -351,6 +360,13 @@ var MapCore = /** @class */ (function (_super) {
         this.props.onViewportChange(__assign({}, viewport, { latitude: latitude,
             longitude: longitude,
             zoom: zoom }, transitionProps));
+    };
+    MapCore.prototype.applyInitialViewport = function () {
+        var _a = this.props, initialViewport = _a.initialViewport, viewport = _a.viewport;
+        if (!initialViewport) {
+            return;
+        }
+        this.props.onViewportChange(__assign({}, viewport, initialViewport));
     };
     MapCore.prototype.getMergedCanvas = function () {
         var canvas = document.createElement("canvas");
@@ -449,7 +465,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
             var viewport = _this.props.viewport || _this.state.viewport;
             var updatedViewport = __assign({}, viewport, { zoom: viewport.zoom - 1 > 0 ? viewport.zoom - 1 : viewport.zoom });
             if (_this.props.viewport && _this.props.onViewportChange) {
-                _this.props.onViewportChange(updatedViewport);
+                _this.props.onViewportChange(updatedViewport, true);
             }
             else {
                 _this.setState({
@@ -461,7 +477,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
             var viewport = _this.props.viewport || _this.state.viewport;
             var updatedViewport = __assign({}, viewport, { zoom: viewport.zoom + 1 < 20 ? viewport.zoom + 1 : viewport.zoom });
             if (_this.props.viewport && _this.props.onViewportChange) {
-                _this.props.onViewportChange(updatedViewport);
+                _this.props.onViewportChange(updatedViewport, true);
             }
             else {
                 _this.setState({
@@ -479,7 +495,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
     }
     MapContainer$1.prototype.render = function () {
         var _this = this;
-        var _a = this.props, layers = _a.layers, style = _a.style, fitBounds = _a.fitBounds, onClick = _a.onClick, onMapClick = _a.onMapClick, onPointHover = _a.onPointHover, onOverlayHover = _a.onOverlayHover, children = _a.children, isDoubleClickDisabled = _a.isDoubleClickDisabled, isEmbedded = _a.isEmbedded, fitBoundsPadding = _a.fitBoundsPadding, disableTransitions = _a.disableTransitions;
+        var _a = this.props, layers = _a.layers, style = _a.style, fitBounds = _a.fitBounds, onClick = _a.onClick, onMapClick = _a.onMapClick, onPointHover = _a.onPointHover, onOverlayHover = _a.onOverlayHover, children = _a.children, isDoubleClickDisabled = _a.isDoubleClickDisabled, isEmbedded = _a.isEmbedded, fitBoundsPadding = _a.fitBoundsPadding, disableTransitions = _a.disableTransitions, initialViewport = _a.initialViewport;
         var wantsZoomButtons = this.props.wantsZoomButtons;
         if (wantsZoomButtons === undefined) {
             wantsZoomButtons = true;
@@ -488,7 +504,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
             var size = _a.size;
             var width = size.width, height = size.height;
             return (React.createElement("div", { className: MapContainer },
-                React.createElement(MapCore, { style: style, viewport: _this.props.viewport || _this.state.viewport, buttons: wantsZoomButtons ? [[ButtonType.ZOOM_IN, ButtonType.ZOOM_OUT]] : [], width: width || 600, height: height || 300, onViewportChange: _this.onViewportChange, onZoomIn: _this.handleZoomInOnClick, onZoomOut: _this.handleZoomOutOnClick, onClick: onClick, onMapClick: onMapClick, onPointHover: onPointHover, onOverlayHover: onOverlayHover, layers: layers, fitBounds: fitBounds, fitBoundsPadding: fitBoundsPadding, ref: _this.mapRef, isDoubleClickDisabled: isDoubleClickDisabled, isEmbedded: isEmbedded, disableTransitions: disableTransitions }, children)));
+                React.createElement(MapCore, { style: style, viewport: _this.props.viewport || _this.state.viewport, buttons: wantsZoomButtons ? [[ButtonType.ZOOM_IN, ButtonType.ZOOM_OUT]] : [], width: width || 600, height: height || 300, onViewportChange: _this.onViewportChange, onZoomIn: _this.handleZoomInOnClick, onZoomOut: _this.handleZoomOutOnClick, onClick: onClick, onMapClick: onMapClick, onPointHover: onPointHover, onOverlayHover: onOverlayHover, layers: layers, fitBounds: fitBounds, fitBoundsPadding: fitBoundsPadding, ref: _this.mapRef, isDoubleClickDisabled: isDoubleClickDisabled, isEmbedded: isEmbedded, disableTransitions: disableTransitions, initialViewport: initialViewport }, children)));
         }));
     };
     MapContainer$1.prototype.getMapCanvas = function () {

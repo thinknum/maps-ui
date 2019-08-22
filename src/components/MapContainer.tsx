@@ -20,6 +20,7 @@ interface IMapContainerProps {
   wantsZoomButtons?: boolean;
   isEmbedded?: boolean;
   disableTransitions?: boolean;
+  initialViewport?: IViewport;
 }
 
 interface IMapContainerState {
@@ -57,6 +58,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
       isEmbedded,
       fitBoundsPadding,
       disableTransitions,
+      initialViewport,
     } = this.props;
 
     let {wantsZoomButtons} = this.props;
@@ -92,6 +94,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
                 isDoubleClickDisabled={isDoubleClickDisabled}
                 isEmbedded={isEmbedded}
                 disableTransitions={disableTransitions}
+                initialViewport={initialViewport}
               >
                 {children}
               </MapCore>
@@ -118,7 +121,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
     };
 
     if (this.props.viewport && this.props.onViewportChange) {
-      this.props.onViewportChange(updatedViewport);
+      this.props.onViewportChange(updatedViewport, true);
     } else {
       this.setState({
         viewport: updatedViewport,
@@ -135,7 +138,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
     };
 
     if (this.props.viewport && this.props.onViewportChange) {
-      this.props.onViewportChange(updatedViewport);
+      this.props.onViewportChange(updatedViewport, true);
     } else {
       this.setState({
         viewport: updatedViewport,
