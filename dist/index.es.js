@@ -126,6 +126,16 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
+var _a, _b;
+var ThinknumMapTheme = (_a = {},
+    _a[MapStyle.DARK] = "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
+    _a[MapStyle.LIGHT] = "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
+    _a);
+var MediaMapTheme = (_b = {},
+    _b[MapStyle.DARK] = "mapbox://styles/ugwigr/cka7zrmh40j7j1inr3bxl4lrn",
+    _b[MapStyle.LIGHT] = "mapbox://styles/ugwigr/cka7zt0cz0j8o1inr6eukbyfi",
+    _b);
+
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -162,22 +172,22 @@ var button = "styles_button__2SGve";
 var MapButton = "styles_MapButton__3Rnhe";
 var zoomIn = "styles_zoomIn__3CqqR";
 var zoomOut = "styles_zoomOut__1uTQ-";
-var css = ".styles_MapContainer__svuYM {\n  width: 100%;\n  height: 100%;\n  min-width: 320px;\n  min-height: 180px; }\n\n.styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n\n.styles_MapButton__3Rnhe {\n  background: white;\n  width: 34px;\n  height: 32px;\n  padding: 0;\n  box-sizing: border-box;\n  display: inline-block;\n  position: relative;\n  border: none; }\n  .styles_MapButton__3Rnhe:active {\n    background: #f8f8f8; }\n  .styles_MapButton__3Rnhe:focus {\n    outline: 0; }\n  .styles_MapButton__3Rnhe i {\n    margin-right: 0 !important; }\n  .styles_MapButton__3Rnhe:hover i svg path {\n    fill: #000; }\n  .styles_MapButton__3Rnhe.styles_zoomIn__3CqqR {\n    border-right: 1px solid #eef7fc; }\n  .styles_MapButton__3Rnhe.styles_zoomOut__1uTQ- i svg {\n    padding-bottom: 4px; }\n\na.mapboxgl-ctrl-logo {\n  display: none !important; }\n";
+var css = ".styles_MapContainer__svuYM {\n  width: 100%;\n  height: 100%;\n  min-width: 320px;\n  min-height: 180px; }\n\n.styles_tooltip__1MlWX {\n  background: rgba(0, 0, 0, 0.8);\n  padding: 5px 8px;\n  border-radius: 4px;\n  color: #fff;\n  position: absolute; }\n\n.styles_buttons__C-09c {\n  position: absolute;\n  bottom: 10px;\n  right: 44px;\n  display: flex; }\n  .styles_buttons__C-09c.styles_embedded__2Udgw {\n    right: 0px; }\n  .styles_buttons__C-09c .styles_group__1mM-j {\n    box-sizing: border-box;\n    overflow: hidden;\n    margin-right: 10px;\n    display: inline-block;\n    box-shadow: 0px 4px 10px 0px rgba(17, 37, 59, 0.08);\n    border-radius: 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:first-child {\n      border-radius: 4px 0 0 4px; }\n    .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:last-child {\n      border-radius: 0 4px 4px 0; }\n    .styles_buttons__C-09c .styles_group__1mM-j:last-child {\n      margin-bottom: 0; }\n\n.styles_MapButton__3Rnhe {\n  background: white;\n  width: 34px;\n  height: 32px;\n  padding: 0;\n  box-sizing: border-box;\n  display: inline-block;\n  position: relative;\n  border: none; }\n  .styles_MapButton__3Rnhe:active {\n    background: #f8f8f8; }\n  .styles_MapButton__3Rnhe:focus {\n    outline: 0; }\n  .styles_MapButton__3Rnhe i {\n    margin-right: 0 !important; }\n  .styles_MapButton__3Rnhe:hover i svg path {\n    fill: #000; }\n  .styles_MapButton__3Rnhe.styles_zoomIn__3CqqR {\n    border-right: 1px solid #eef7fc; }\n  .styles_MapButton__3Rnhe.styles_zoomOut__1uTQ- i svg {\n    padding-bottom: 4px; }\n\na.mapboxgl-ctrl-logo {\n  display: none !important; }\n\ndiv#root.media-v2 .styles_buttons__C-09c .styles_group__1mM-j {\n  border-radius: 0; }\n  div#root.media-v2 .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve svg path {\n    fill: #000; }\n  div#root.media-v2 .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:first-child {\n    border-radius: 0;\n    border-right: 1px solid #000; }\n  div#root.media-v2 .styles_buttons__C-09c .styles_group__1mM-j > .styles_button__2SGve:last-child {\n    border-radius: 0; }\n";
 styleInject(css);
 
 var ZoomIn = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"10\" height=\"10\"><path fill-rule=\"evenodd\" fill=\"#778FA9\" d=\"M9 6H6v3a1 1 0 0 1-2 0V6H1a1 1 0 0 1 0-2h3V1a1 1 0 0 1 2 0v3h3a1 1 0 0 1 0 2z\"/></svg>";
 
 var ZoomOut = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"9\" height=\"2\"><path fill-rule=\"evenodd\" fill=\"#778FA9\" d=\"M1 0h7a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z\"/></svg>";
 
-var _a, _b;
-var stylesByButton = (_a = {},
-    _a[ButtonType.ZOOM_IN] = zoomIn,
-    _a[ButtonType.ZOOM_OUT] = zoomOut,
-    _a);
-var icons = (_b = {},
-    _b[ButtonType.ZOOM_IN] = ZoomIn,
-    _b[ButtonType.ZOOM_OUT] = ZoomOut,
-    _b);
+var _a$1, _b$1;
+var stylesByButton = (_a$1 = {},
+    _a$1[ButtonType.ZOOM_IN] = zoomIn,
+    _a$1[ButtonType.ZOOM_OUT] = zoomOut,
+    _a$1);
+var icons = (_b$1 = {},
+    _b$1[ButtonType.ZOOM_IN] = ZoomIn,
+    _b$1[ButtonType.ZOOM_OUT] = ZoomOut,
+    _b$1);
 var Icon = function (props) {
     return React.createElement("i", { dangerouslySetInnerHTML: { __html: props.svg } });
 };
@@ -190,13 +200,16 @@ var MapButton$1 = function (props) {
         React.createElement(Icon, { svg: icons[props.button] })));
 };
 
-var _a$1;
 /* Constants
 -------------------------------------------------------------------------*/
-var StylesByMapStyle = (_a$1 = {},
-    _a$1[MapStyle.DARK] = "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
-    _a$1[MapStyle.LIGHT] = "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
-    _a$1);
+function getMapStyles(theme) {
+    if (theme) {
+        return theme;
+    }
+    else {
+        return ThinknumMapTheme;
+    }
+}
 var MapCore = /** @class */ (function (_super) {
     __extends(MapCore, _super);
     function MapCore() {
@@ -300,9 +313,9 @@ var MapCore = /** @class */ (function (_super) {
     MapCore.prototype.render = function () {
         var _this = this;
         var _a;
-        var _b = this.props, viewport = _b.viewport, width = _b.width, height = _b.height, onViewportChange = _b.onViewportChange, layers = _b.layers, style = _b.style, buttons$1 = _b.buttons, onPointHover = _b.onPointHover, onOverlayHover = _b.onOverlayHover, onClick = _b.onClick, onMapClick = _b.onMapClick, children = _b.children, isDoubleClickDisabled = _b.isDoubleClickDisabled, isEmbedded = _b.isEmbedded;
+        var _b = this.props, viewport = _b.viewport, width = _b.width, height = _b.height, onViewportChange = _b.onViewportChange, layers = _b.layers, style = _b.style, buttons$1 = _b.buttons, onPointHover = _b.onPointHover, onOverlayHover = _b.onOverlayHover, onClick = _b.onClick, onMapClick = _b.onMapClick, children = _b.children, isDoubleClickDisabled = _b.isDoubleClickDisabled, isEmbedded = _b.isEmbedded, theme = _b.theme;
         var tooltip$1 = this.state.tooltip;
-        var mapStyle = StylesByMapStyle[style];
+        var mapStyle = getMapStyles(theme)[style];
         return (React.createElement(React.Fragment, null,
             React.createElement(ReactMapGL, __assign({ mapboxApiAccessToken: "pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA", mapStyle: mapStyle, preserveDrawingBuffer: true }, viewport, { ref: this.handleUpdateMapRef, width: width, height: height, doubleClickZoom: isDoubleClickDisabled ? false : true, onViewportChange: function (info) {
                     onPointHover(undefined);
@@ -495,7 +508,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
     }
     MapContainer$1.prototype.render = function () {
         var _this = this;
-        var _a = this.props, layers = _a.layers, style = _a.style, fitBounds = _a.fitBounds, onClick = _a.onClick, onMapClick = _a.onMapClick, onPointHover = _a.onPointHover, onOverlayHover = _a.onOverlayHover, children = _a.children, isDoubleClickDisabled = _a.isDoubleClickDisabled, isEmbedded = _a.isEmbedded, fitBoundsPadding = _a.fitBoundsPadding, disableTransitions = _a.disableTransitions, initialViewport = _a.initialViewport;
+        var _a = this.props, layers = _a.layers, style = _a.style, theme = _a.theme, fitBounds = _a.fitBounds, onClick = _a.onClick, onMapClick = _a.onMapClick, onPointHover = _a.onPointHover, onOverlayHover = _a.onOverlayHover, children = _a.children, isDoubleClickDisabled = _a.isDoubleClickDisabled, isEmbedded = _a.isEmbedded, fitBoundsPadding = _a.fitBoundsPadding, disableTransitions = _a.disableTransitions, initialViewport = _a.initialViewport;
         var wantsZoomButtons = this.props.wantsZoomButtons;
         if (wantsZoomButtons === undefined) {
             wantsZoomButtons = true;
@@ -504,7 +517,7 @@ var MapContainer$1 = /** @class */ (function (_super) {
             var size = _a.size;
             var width = size.width, height = size.height;
             return (React.createElement("div", { className: MapContainer },
-                React.createElement(MapCore, { style: style, viewport: _this.props.viewport || _this.state.viewport, buttons: wantsZoomButtons ? [[ButtonType.ZOOM_IN, ButtonType.ZOOM_OUT]] : [], width: width || 600, height: height || 300, onViewportChange: _this.onViewportChange, onZoomIn: _this.handleZoomInOnClick, onZoomOut: _this.handleZoomOutOnClick, onClick: onClick, onMapClick: onMapClick, onPointHover: onPointHover, onOverlayHover: onOverlayHover, layers: layers, fitBounds: fitBounds, fitBoundsPadding: fitBoundsPadding, ref: _this.mapRef, isDoubleClickDisabled: isDoubleClickDisabled, isEmbedded: isEmbedded, disableTransitions: disableTransitions, initialViewport: initialViewport }, children)));
+                React.createElement(MapCore, { style: style, theme: theme, viewport: _this.props.viewport || _this.state.viewport, buttons: wantsZoomButtons ? [[ButtonType.ZOOM_IN, ButtonType.ZOOM_OUT]] : [], width: width || 600, height: height || 300, onViewportChange: _this.onViewportChange, onZoomIn: _this.handleZoomInOnClick, onZoomOut: _this.handleZoomOutOnClick, onClick: onClick, onMapClick: onMapClick, onPointHover: onPointHover, onOverlayHover: onOverlayHover, layers: layers, fitBounds: fitBounds, fitBoundsPadding: fitBoundsPadding, ref: _this.mapRef, isDoubleClickDisabled: isDoubleClickDisabled, isEmbedded: isEmbedded, disableTransitions: disableTransitions, initialViewport: initialViewport }, children)));
         }));
     };
     MapContainer$1.prototype.getMapCanvas = function () {
@@ -519,4 +532,4 @@ var MapContainer$1 = /** @class */ (function (_super) {
     return MapContainer$1;
 }(React.Component));
 
-export { ButtonType, GeometryType, MapContainer$1 as MapContainer, MapCore, MapStyle, StylesByMapStyle, getCoordinatesCorners, pointsWithoutOutliers, smartFindBounds };
+export { ButtonType, GeometryType, MapContainer$1 as MapContainer, MapCore, MapStyle, MediaMapTheme, ThinknumMapTheme, getCoordinatesCorners, getMapStyles, pointsWithoutOutliers, smartFindBounds };

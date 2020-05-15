@@ -89,3 +89,26 @@
 :global(a.mapboxgl-ctrl-logo) {
   display: none !important;
 }
+
+:global(div#root.media-v2) {
+  :local {
+    .buttons .group {
+      border-radius: 0;
+  
+      > .button {
+        svg path {
+          fill: #000;
+        }
+
+        &:first-child {
+          border-radius: 0;
+          border-right: 1px solid #000;
+        }
+  
+        &:last-child {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+}
