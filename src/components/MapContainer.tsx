@@ -1,9 +1,10 @@
-import {ButtonType, IPointInfo, IViewport, MapStyle, PanHandler, Padding} from "../lib/types";
-import {Position} from "geojson";
+import { Position } from "geojson";
 import React from "react";
+import { SizeMe } from "react-sizeme";
+import { MapTheme } from "../lib/Theme";
+import { ButtonType, IPointInfo, IViewport, MapStyle, Padding, PanHandler } from "../lib/types";
+import { MapCore } from "./MapCore";
 import * as styles from "./styles.scss";
-import {MapCore} from "./MapCore";
-import {SizeMe} from "react-sizeme";
 
 interface IMapContainerProps {
   fitBounds?: Position[];
@@ -11,6 +12,7 @@ interface IMapContainerProps {
   viewport?: IViewport;
   layers?: any[];
   style: MapStyle;
+  theme?: MapTheme;
   onClick: (info: IPointInfo) => void;
   onMapClick?: (mapPosition: Position, screenPosition: Position) => void;
   onPointHover: (info: IPointInfo) => void;
@@ -48,6 +50,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
     const {
       layers,
       style,
+      theme,
       fitBounds,
       onClick,
       onMapClick,
@@ -76,6 +79,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
             <div className={styles.MapContainer}>
               <MapCore
                 style={style}
+                theme={theme}
                 viewport={this.props.viewport || this.state.viewport}
                 buttons={wantsZoomButtons ? [[ButtonType.ZOOM_IN, ButtonType.ZOOM_OUT]] : []}
                 width={width || 600}

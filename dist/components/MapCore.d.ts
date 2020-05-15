@@ -1,15 +1,13 @@
 import { Position } from "geojson";
 import React from "react";
-import { MapStyle, IViewport, ButtonType, PanHandler, IPointInfo, Padding } from "../lib/types";
+import { MapTheme } from "../lib/Theme";
+import { ButtonType, IPointInfo, IViewport, MapStyle, Padding, PanHandler } from "../lib/types";
 export interface ICoordinatesExtents {
     maxLng: number;
     maxLat: number;
     minLat: number;
 }
-export declare const StylesByMapStyle: {
-    [MapStyle.DARK]: string;
-    [MapStyle.LIGHT]: string;
-};
+export declare function getMapStyles(theme?: MapTheme): MapTheme;
 interface IMapProps {
     layers?: any[];
     style: MapStyle;
@@ -30,6 +28,7 @@ interface IMapProps {
     isEmbedded?: boolean;
     disableTransitions?: boolean;
     initialViewport?: IViewport;
+    theme?: MapTheme;
 }
 interface IMapState {
     tooltip: {

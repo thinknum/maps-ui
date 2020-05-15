@@ -1,21 +1,14 @@
 import cx from "classnames";
 import DeckGL from "deck.gl";
-import {Position} from "geojson";
+import { Position } from "geojson";
 import isEqual from "lodash-es/isEqual";
 import React from "react";
-import ReactMapGL, {FlyToInterpolator} from "react-map-gl";
+import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 import * as Mercator from "viewport-mercator-project";
+import { MapTheme, ThinknumMapTheme } from "../lib/Theme";
+import { ButtonType, GeometryType, IPointInfo, IViewport, MapStyle, Padding, PanHandler } from "../lib/types";
+import { MapButton } from "./MapButton";
 import * as styles from "./styles.scss";
-import {
-  GeometryType,
-  MapStyle,
-  IViewport,
-  ButtonType,
-  PanHandler,
-  IPointInfo,
-  Padding,
-} from "../lib/types";
-import {MapButton} from "./MapButton";
 
 /* Types
 -------------------------------------------------------------------------*/
@@ -29,10 +22,13 @@ export interface ICoordinatesExtents {
 /* Constants
 -------------------------------------------------------------------------*/
 
-export const StylesByMapStyle = {
-  [MapStyle.DARK]: "mapbox://styles/ugwigr/cjbcmizfk7c4z2rmyniglt8f6",
-  [MapStyle.LIGHT]: "mapbox://styles/ugwigr/cjbcmn6gy7bse2so1p7b4jccq",
-};
+export function getMapStyles(theme?: MapTheme) {
+  if (theme) {
+    return theme;
+  } else {
+    return ThinknumMapTheme;
+  }
+}
 
 /* Template
 -------------------------------------------------------------------------*/
@@ -57,6 +53,7 @@ interface IMapProps {
   isEmbedded?: boolean;
   disableTransitions?: boolean;
   initialViewport?: IViewport;
+  theme?: MapTheme;
 }
 
 interface IMapState {
@@ -120,9 +117,10 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       children,
       isDoubleClickDisabled,
       isEmbedded,
+      theme,
     } = this.props;
     const {tooltip} = this.state;
-    const mapStyle = StylesByMapStyle[style];
+    const mapStyle = getMapStyles(theme)[style];
 
     return (
       <>

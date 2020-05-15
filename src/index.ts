@@ -3,6 +3,7 @@ export * from "./lib/helpers";
 
 export * from "./components/MapCore";
 export {MapContainer} from "./components/MapContainer";
+export {MapTheme, ThinknumMapTheme, MediaMapTheme} from "./lib/Theme";
 
 import ReactMapGL from "react-map-gl";
 export {ReactMapGL};

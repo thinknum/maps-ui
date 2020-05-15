@@ -1,12 +1,14 @@
-import { IPointInfo, IViewport, MapStyle, PanHandler, Padding } from "../lib/types";
 import { Position } from "geojson";
 import React from "react";
+import { MapTheme } from "../lib/Theme";
+import { IPointInfo, IViewport, MapStyle, Padding, PanHandler } from "../lib/types";
 interface IMapContainerProps {
     fitBounds?: Position[];
     fitBoundsPadding?: Partial<Padding>;
     viewport?: IViewport;
     layers?: any[];
     style: MapStyle;
+    theme?: MapTheme;
     onClick: (info: IPointInfo) => void;
     onMapClick?: (mapPosition: Position, screenPosition: Position) => void;
     onPointHover: (info: IPointInfo) => void;
