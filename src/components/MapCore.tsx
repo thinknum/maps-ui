@@ -72,8 +72,9 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
   };
 
   private deck: any;
-  public mapCanvas: any = null;
+  private mapCanvas: any = null;
   private overlayCanvas: any = null;
+  private reactMapRef: React.RefObject<any> = React.createRef();
 
   public componentDidMount() {
     if (this.props.initialViewport) {
@@ -129,7 +130,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
           mapStyle={mapStyle}
           preserveDrawingBuffer={true}
           {...viewport}
-          ref={this.handleUpdateMapRef}
+          ref={this.reactMapRef}
           width={width}
           height={height}
           doubleClickZoom={isDoubleClickDisabled ? false : true}
@@ -145,6 +146,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
             }
           }}
           attributionControl={false}
+          onLoad={this.handleUpdateMapRef}
         >
           <DeckGL
             viewState={viewport}
@@ -276,8 +278,14 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
     return canvas;
   }
 
-  private handleUpdateMapRef = (ref: any) => {
-    this.mapCanvas = ref ? ref.getMap()._canvas : undefined;
+  private handleUpdateMapRef = () => {
+    const reactMap = this.reactMapRef.current;
+    if (!reactMap) {
+      return;
+    }
+
+    const map = reactMap.getMap();
+    this.mapCanvas = map ? map._canvas : undefined;
   };
 
   private handleUpdateDeckRef = (ref: any) => {

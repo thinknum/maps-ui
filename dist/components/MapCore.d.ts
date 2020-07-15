@@ -40,8 +40,9 @@ interface IMapState {
 export declare class MapCore extends React.Component<IMapProps, IMapState> {
     state: IMapState;
     private deck;
-    mapCanvas: any;
+    private mapCanvas;
     private overlayCanvas;
+    private reactMapRef;
     componentDidMount(): void;
     componentDidUpdate(prevProps: IMapProps): void;
     render(): JSX.Element;
