@@ -11,11 +11,19 @@
     "dist/**/*"
   ],
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thinknum/maps-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -cw",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "prepublish": "npm run clean && npm run build"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.8",
