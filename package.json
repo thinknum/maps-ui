@@ -19,6 +19,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
+    "clean": "rm -rf dist/",
     "build": "rollup -c",
     "watch": "rollup -cw",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
