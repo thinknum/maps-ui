@@ -1,5 +1,5 @@
 import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import {nodeResolve} from '@rollup/plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript2';
 import svgo from 'rollup-plugin-svgo';
@@ -22,7 +22,7 @@ export default {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
 plugins: [
-    resolve(),
+    nodeResolve(),
     commonjs({
       namedExports: {
         "node_modules/react-sizeme/dist/react-sizeme.js": ["SizeMe"],

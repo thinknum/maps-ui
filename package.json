@@ -1,6 +1,6 @@
 {
   "name": "@thinknum/maps-ui",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -11,13 +11,23 @@
     "dist/**/*"
   ],
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thinknum/maps-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
+    "clean": "rm -rf dist/",
     "build": "rollup -c",
     "watch": "rollup -cw",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "prepublish": "npm run clean && npm run build"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@types/classnames": "^2.2.8",
     "@types/d3-array": "^2.0.0",
     "@types/geojson": "^7946.0.7",
@@ -25,25 +35,24 @@
     "@types/node": "12.0.2",
     "@types/react": "16.8.18",
     "@types/react-dom": "16.8.4",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.14.1",
     "postcss-modules": "^1.4.1",
-    "prettier": "^1.16.4",
-    "rollup": "^1.8.0",
-    "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-node-resolve": "^5.0.0",
-    "rollup-plugin-postcss": "^2.0.3",
-    "rollup-plugin-svgo": "^1.0.3",
-    "rollup-plugin-typescript2": "^0.21.1",
-    "tslint": "^5.15.0",
+    "prettier": "^2.0.5",
+    "rollup": "^2.23.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-postcss": "^3.1.3",
+    "rollup-plugin-svgo": "^1.1.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "3.4.5"
+    "typescript": "^3.9.2"
   },
   "resolutions": {},
   "peerDependencies": {
     "classnames": "*",
     "lodash-es": "*",
-    "react": "^16.8",
-    "react-dom": "^16.8"
+    "react": "^16.13",
+    "react-dom": "^16.13"
   },
   "dependencies": {
     "d3-array": "^2.2.0",

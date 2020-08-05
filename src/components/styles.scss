@@ -77,11 +77,18 @@
 
   &.zoomIn {
     border-right: 1px solid #eef7fc;
+
+    i svg {
+      width: 10px;
+      height: 10px;
+    }
   }
 
   &.zoomOut {
     i svg {
       padding-bottom: 4px;
+      width: 9px;
+      height: 2px;
     }
   }
 }
