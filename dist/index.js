@@ -239,10 +239,7 @@ var MapCore = /** @class */ (function (_super) {
         _this.handleUpdateDeckRef = function (ref) {
             if (ref) {
                 _this.deck = ref.deck;
-                _this.overlayCanvas = ref.deckCanvas;
-                _this.overlayCanvas.getContext("webgl", {
-                    preserveDrawingBuffer: true,
-                });
+                _this.overlayCanvas = ref.deck.canvas;
             }
             else {
                 _this.overlayCanvas = undefined;
@@ -323,7 +320,7 @@ var MapCore = /** @class */ (function (_super) {
         var tooltip$1 = this.state.tooltip;
         var mapStyle = getMapStyles(theme)[style];
         return (React.createElement(React.Fragment, null,
-            React.createElement(ReactMapGL__default, __assign({ mapboxApiAccessToken: "pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA", mapStyle: mapStyle, preserveDrawingBuffer: true }, viewport, { ref: this.reactMapRef, width: width, height: height, doubleClickZoom: isDoubleClickDisabled ? false : true, onViewportChange: function (info) {
+            React.createElement(ReactMapGL__default, __assign({ mapboxApiAccessToken: "pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA", mapStyle: mapStyle, preserveDrawingBuffer: isEmbedded ? false : true }, viewport, { ref: this.reactMapRef, width: width, height: height, doubleClickZoom: isDoubleClickDisabled ? false : true, onViewportChange: function (info) {
                     onPointHover(undefined);
                     onOverlayHover(undefined);
                     onClick(undefined);
@@ -333,7 +330,7 @@ var MapCore = /** @class */ (function (_super) {
                         onMapClick(ev.lngLat, [ev.offsetCenter.x, ev.offsetCenter.y]);
                     }
                 }, attributionControl: false, onLoad: this.handleUpdateMapRef }),
-                React.createElement(DeckGL__default, { viewState: viewport, ref: this.handleUpdateDeckRef, width: width, height: height, layers: layers, onHover: this.onLayerHover, onClick: this.onLayerClick, pickingRadius: 5 }),
+                React.createElement(DeckGL__default, { viewState: viewport, ref: this.handleUpdateDeckRef, width: width, height: height, layers: layers, onHover: this.onLayerHover, onClick: this.onLayerClick, pickingRadius: 5, glOptions: isEmbedded ? undefined : { preserveDrawingBuffer: true } }),
                 children,
                 tooltip$1 ? (React.createElement("div", { className: tooltip, style: { top: tooltip$1.y, left: tooltip$1.x } }, tooltip$1.content)) : null),
             buttons$1.length > 0 && (React.createElement("div", { className: cx(buttons, (_a = {},
