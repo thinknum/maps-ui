@@ -128,7 +128,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
         <ReactMapGL
           mapboxApiAccessToken={"pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA"}
           mapStyle={mapStyle}
-          preserveDrawingBuffer={true}
+          preserveDrawingBuffer={isEmbedded ? false : true} // for PNG exporting
           {...viewport}
           ref={this.reactMapRef}
           width={width}
@@ -157,6 +157,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
             onHover={this.onLayerHover}
             onClick={this.onLayerClick}
             pickingRadius={5}
+            glOptions={isEmbedded ? undefined : {preserveDrawingBuffer: true}} // for PNG exporting
           />
 
           {children}
@@ -291,10 +292,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
   private handleUpdateDeckRef = (ref: any) => {
     if (ref) {
       this.deck = ref.deck;
-      this.overlayCanvas = ref.deckCanvas;
-      this.overlayCanvas.getContext("webgl", {
-        preserveDrawingBuffer: true,
-      });
+      this.overlayCanvas = ref.deck.canvas;
     } else {
       this.overlayCanvas = undefined;
     }
