@@ -210,10 +210,10 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
 
   private applyFitBounds() {
     const {fitBounds, width, height, viewport, disableTransitions} = this.props;
-    const padding = this.getPadding();
     if (fitBounds === undefined) {
       return;
     }
+    const padding = this.getPadding();
 
     const fittedBounds = Mercator.fitBounds({
       bounds: fitBounds,
