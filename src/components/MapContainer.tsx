@@ -23,6 +23,7 @@ interface IMapContainerProps {
   isEmbedded?: boolean;
   disableTransitions?: boolean;
   initialViewport?: IViewport;
+  preserveDrawingBuffer?: boolean;
 }
 
 interface IMapContainerState {
@@ -99,6 +100,7 @@ export class MapContainer extends React.Component<IMapContainerProps, IMapContai
                 isEmbedded={isEmbedded}
                 disableTransitions={disableTransitions}
                 initialViewport={initialViewport}
+                preserveDrawingBuffer={this.props.preserveDrawingBuffer}
               >
                 {children}
               </MapCore>

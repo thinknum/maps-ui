@@ -54,6 +54,7 @@ interface IMapProps {
   disableTransitions?: boolean;
   initialViewport?: IViewport;
   theme?: MapTheme;
+  preserveDrawingBuffer?: boolean;
 }
 
 interface IMapState {
@@ -119,6 +120,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       isDoubleClickDisabled,
       isEmbedded,
       theme,
+      preserveDrawingBuffer,
     } = this.props;
     const {tooltip} = this.state;
     const mapStyle = getMapStyles(theme)[style];
@@ -128,7 +130,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
         <ReactMapGL
           mapboxApiAccessToken={"pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA"}
           mapStyle={mapStyle}
-          preserveDrawingBuffer={isEmbedded ? false : true} // for PNG exporting
+          preserveDrawingBuffer={preserveDrawingBuffer} // for PNG exporting
           {...viewport}
           ref={this.reactMapRef}
           width={width}
@@ -157,7 +159,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
             onHover={this.onLayerHover}
             onClick={this.onLayerClick}
             pickingRadius={5}
-            glOptions={isEmbedded ? undefined : {preserveDrawingBuffer: true}} // for PNG exporting
+            glOptions={preserveDrawingBuffer ? {preserveDrawingBuffer: true} : undefined} // for PNG exporting
           />
 
           {children}
