@@ -1,12 +1,19 @@
 import cx from "classnames";
 import DeckGL from "deck.gl";
 import { Position } from "geojson";
-import isEqual from "lodash-es/isEqual";
 import React from "react";
 import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 import * as Mercator from "viewport-mercator-project";
 import { MapTheme, ThinknumMapTheme } from "../lib/Theme";
-import { ButtonType, GeometryType, IPointInfo, IViewport, MapStyle, Padding, PanHandler } from "../lib/types";
+import {
+  ButtonType,
+  GeometryType,
+  IPointInfo,
+  IViewport,
+  MapStyle,
+  Padding,
+  PanHandler
+} from "../lib/types";
 import { MapButton } from "./MapButton";
 import * as styles from "./styles.scss";
 
@@ -237,10 +244,12 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       width,
       height,
     });
-    const transitionProps = disableTransitions ? {} : {
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionDuration: 500,
-    };
+    const transitionProps = disableTransitions
+      ? {}
+      : {
+          transitionInterpolator: new FlyToInterpolator(),
+          transitionDuration: 500,
+        };
 
     this.props.onViewportChange({
       ...viewport,
@@ -435,4 +444,18 @@ function convertRgbToHex(color: [number, number, number]) {
   return (
     "#" + convertNumberToHex(color[0]) + convertNumberToHex(color[1]) + convertNumberToHex(color[2])
   );
+}
+
+function isEqual(obj1: any, obj2: any) {
+  if (obj1 === undefined || obj2 === undefined) {
+    return false;
+  }
+
+  const obj1Length = Object.keys(obj1).length;
+  const obj2Length = Object.keys(obj2).length;
+
+  if (obj1Length === obj2Length) {
+    return Object.keys(obj1).every((key) => obj2.hasOwnProperty(key) && obj2[key] === obj1[key]);
+  }
+  return false;
 }

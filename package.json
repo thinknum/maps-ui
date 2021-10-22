@@ -31,7 +31,6 @@
     "@types/classnames": "^2.2.8",
     "@types/d3-array": "^2.0.0",
     "@types/geojson": "^7946.0.7",
-    "@types/lodash-es": "^4.17.0",
     "@types/node": "12.0.2",
     "@types/react": "16.8.18",
     "@types/react-dom": "16.8.4",
@@ -50,7 +49,6 @@
   "resolutions": {},
   "peerDependencies": {
     "classnames": "*",
-    "lodash-es": "*",
     "react": "^16.13",
     "react-dom": "^16.13"
   },
