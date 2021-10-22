@@ -1,9 +1,22 @@
 import {Position} from "geojson";
 import {quantile} from "d3-array";
 
+export function validateCoordinates(coordinates: number[]) {
+  const [lng, lat] = coordinates;
+  if (Number.isFinite(lng) && Number.isFinite(lat) && lat >= -90 && lat <= 90) {
+    return coordinates;
+  }
+  throw new Error(`Invalid coordinates: [lng: ${lng}, lat: ${lat}]`);
+}
+
 export function smartFindBounds(coordinates: Position[]) {
   const withoutOutliers = pointsWithoutOutliers(coordinates);
-  return getCoordinatesCorners(withoutOutliers);
+  const corners = getCoordinatesCorners(withoutOutliers);
+
+  validateCoordinates(corners[0]);
+  validateCoordinates(corners[1]);
+
+  return corners;
 }
 
 export function getCoordinatesCorners(coordinates: Position[]) {
