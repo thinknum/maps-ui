@@ -312,7 +312,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
   private onLayerHover = (info: any) => {
     const {onPointHover, onOverlayHover} = this.props;
 
-    if (info && info.object && info.object.id) {
+    if (info && info.object && info.object.groups) {
       const pointInfo = this.createPointInfo(info);
       onPointHover(pointInfo);
     } else if (info && info.object && info.object.type === "Feature" && info.object.properties) {
