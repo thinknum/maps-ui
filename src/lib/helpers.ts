@@ -1,5 +1,6 @@
 import {Position} from "geojson";
 import {quantile} from "d3-array";
+import {Bounds} from "./types";
 
 export function validateCoordinates(coordinates: number[]) {
   const [lng, lat] = coordinates;
@@ -43,7 +44,7 @@ export function getCoordinatesCorners(coordinates: Position[]) {
     }
   }
 
-  return [[top, left], [bottom, right]] as [Position, Position];
+  return [[top, left], [bottom, right]] as Bounds;
 }
 
 export const pointsWithoutOutliers = (points: number[][]) => {

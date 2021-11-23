@@ -2,12 +2,12 @@ import { Position } from "geojson";
 import React from "react";
 import { SizeMe } from "react-sizeme";
 import { MapTheme } from "../lib/Theme";
-import { ButtonType, IPointInfo, IViewport, MapStyle, Padding, PanHandler } from "../lib/types";
+import { Bounds, ButtonType, IPointInfo, IViewport, MapStyle, Padding, PanHandler } from "../lib/types";
 import { MapCore } from "./MapCore";
 import * as styles from "./styles.scss";
 
 interface IMapContainerProps {
-  fitBounds?: Position[];
+  fitBounds?: Bounds;
   fitBoundsPadding?: Partial<Padding>;
   viewport?: IViewport;
   layers?: any[];

@@ -1,10 +1,10 @@
 import cx from "classnames";
 import DeckGL from "deck.gl";
-import { Position } from "geojson";
+import {Position} from "geojson";
 import React from "react";
-import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
+import ReactMapGL, {FlyToInterpolator} from "react-map-gl";
 import * as Mercator from "viewport-mercator-project";
-import { MapTheme, ThinknumMapTheme } from "../lib/Theme";
+import {MapTheme, ThinknumMapTheme} from "../lib/Theme";
 import {
   ButtonType,
   GeometryType,
@@ -12,9 +12,10 @@ import {
   IViewport,
   MapStyle,
   Padding,
-  PanHandler
+  PanHandler,
+  Bounds,
 } from "../lib/types";
-import { MapButton } from "./MapButton";
+import {MapButton} from "./MapButton";
 import * as styles from "./styles.scss";
 
 /* Types
@@ -54,7 +55,7 @@ interface IMapProps {
   onMapClick?: (mapPosition: Position, screenPosition: Position) => void;
   onPointHover: (info: IPointInfo | undefined) => void;
   onOverlayHover: (info: IPointInfo | undefined) => void;
-  fitBounds?: Position[];
+  fitBounds?: Bounds;
   fitBoundsPadding?: Partial<Padding>;
   isDoubleClickDisabled?: boolean;
   isEmbedded?: boolean;
@@ -79,9 +80,8 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
     tooltip: undefined,
   };
 
-  private deck: any;
   private mapCanvas: any = null;
-  private overlayCanvas: any = null;
+  private deckRef: React.RefObject<any> = React.createRef();
   private reactMapRef: React.RefObject<any> = React.createRef();
 
   public componentDidMount() {
@@ -159,7 +159,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
         >
           <DeckGL
             viewState={viewport}
-            ref={this.handleUpdateDeckRef}
+            ref={this.deckRef}
             width={width}
             height={height}
             layers={layers}
@@ -285,9 +285,23 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
     canvas.width = this.mapCanvas.width;
     canvas.height = this.mapCanvas.height;
     context.drawImage(this.mapCanvas, 0, 0);
-    context.drawImage(this.overlayCanvas, 0, 0);
+
+    const deck = this.getDeck();
+    const overlayCanvas = deck?.canvas;
+    if (overlayCanvas) {
+      context.drawImage(overlayCanvas, 0, 0);
+    }
 
     return canvas;
+  }
+
+  private getDeck() {
+    const deckRef = this.deckRef.current;
+    if (!deckRef) {
+      return undefined;
+    }
+
+    return deckRef.deck;
   }
 
   private handleUpdateMapRef = () => {
@@ -298,15 +312,6 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
 
     const map = reactMap.getMap();
     this.mapCanvas = map ? map._canvas : undefined;
-  };
-
-  private handleUpdateDeckRef = (ref: any) => {
-    if (ref) {
-      this.deck = ref.deck;
-      this.overlayCanvas = ref.deck.canvas;
-    } else {
-      this.overlayCanvas = undefined;
-    }
   };
 
   private onLayerHover = (info: any) => {
@@ -334,7 +339,8 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
       return undefined;
     }
 
-    const viewports = this.deck.viewManager.getViewports();
+    const deck = this.getDeck();
+    const viewports = deck?.viewManager.getViewports();
     const defaultViewport = viewports[0];
 
     if (!defaultViewport) {
