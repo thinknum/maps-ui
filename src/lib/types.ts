@@ -46,6 +46,9 @@ export interface Padding {
   left: number;
 }
 
+export type Position = [number, number];
+export type Bounds = [Position, Position];
+
 // Handlers
 // --------------------------------------------------------
 

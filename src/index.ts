@@ -1,4 +1,4 @@
-export * from "./lib/types";
+export {GeometryType, MapStyle, ButtonType, IViewport, IPointInfo, Padding, Bounds, PanHandler} from "./lib/types";
 export * from "./lib/helpers";
 
 export * from "./components/MapCore";
