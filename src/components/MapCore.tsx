@@ -135,7 +135,7 @@ export class MapCore extends React.Component<IMapProps, IMapState> {
     return (
       <>
         <ReactMapGL
-          mapboxApiAccessToken={"pk.eyJ1IjoidWd3aWdyIiwiYSI6Ik8tRERDbEkifQ.HXbQmU5i9bYU7c5HHVVxyA"}
+          mapboxApiAccessToken={process.env.MAPBOX_ACCESS_TOKEN}
           mapStyle={mapStyle}
           preserveDrawingBuffer={preserveDrawingBuffer} // for PNG exporting
           {...viewport}
